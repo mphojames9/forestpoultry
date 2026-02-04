@@ -336,6 +336,7 @@ footer {
   max-width: 420px;
   line-height: 1.8;
   opacity: .85;
+  margin: 0 auto;
 }
 
 /* LINKS */
@@ -418,6 +419,8 @@ footer {
   .hero {
     grid-template-columns: 1fr;
     padding-top: 120px;
+    height: 1200px;
+
   }
 
   .hero-images {
@@ -432,6 +435,7 @@ footer {
     .hero {
     grid-template-columns: 1fr;
     padding-top: 0;
+    height: 100vh;
   }
   section {
     padding: 100px 7%;
@@ -448,19 +452,7 @@ footer {
   }
 }
 
-@media(max-width: 600px) {
-  .hero-text h2 {
-    font-size: 2.2rem;
-  }
 
-  .section-title {
-    font-size: 2.2rem;
-  }
-
-  nav {
-    padding: 16px 6%;
-  }
-}
 
 /* =========================
    FOREST MOMENT SECTION
@@ -758,6 +750,27 @@ footer {
   }
 }
 
+@media(max-width: 600px) {
+  .hero-text h2 {
+    font-size: 2.3rem;
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+  }
+
+  nav {
+    padding: 16px 6%;
+  }
+
+  .nav-brand {
+    font-size: 1rem;
+  }
+
+  .mobile-menu {
+    top:3rem
+  }
+}
 /* =========================
    RESPONSIVE
 ========================= */
@@ -772,3 +785,16 @@ footer {
 }
 
 
+@media (max-height: 780px){
+  .hero { 
+    height: 800px;
+  }
+
+  .hero::after, .forest-moment::before, .forest-moment::after, .about-hero::after, .philosophy::before, .philosophy::after, .product-hero::after, .packaging::before, .packaging::after, .contact-hero::after {
+    height: 30px;
+  } 
+
+  .hero-images {
+  display: none;
+  }
+}
