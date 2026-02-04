@@ -1,898 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>King Girl</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      ---mainColor: #B76E79;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f4f4;
-      color: #333;
-      scroll-behavior: smooth;
-      padding-top: 80px;
-    }
-
-    .in-view {
-      animation: 1000ms fade;
-
-    }
-
-    .not-in-view {
-      opacity: 0;
-    }
-
-    .slide-in-view {
-      animation: 2000ms slidefade;
-
-    }
-
-    .slide-not-in-view {
-      opacity: 0;
-    }
-
-    @keyframes fade {
-      0% {
-        opacity: 0;
-        transform: translate(-3em, 0);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translate(0, 0);
-      }
-    }
-
-    @keyframes slidefade {
-      0% {
-        transform: translate(-50em, -10em);
-      }
-
-      50% {
-        transform: translate(10em, 0);
-      }
-
-      100% {
-        transform: translate(0, 0);
-      }
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: transparent;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      z-index: 1000;
-      background-blend-mode: multiply;
-      padding: 0;
-    }
-
-    .imglogo {
-      width: 150px;
-      height: 50px;
-    }
-
-    header.scrolled {
-      background: var(---mainColor);
-    }
-
-    .navbar {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: white;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-    }
-
-    .nav-links a {
-      position: relative;
-      color: white;
-      font-weight: 600;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      height: 2px;
-      width: 0%;
-      background: white;
-      transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-    }
-
-    .hamburger span {
-      width: 25px;
-      height: 3px;
-      background: white;
-      margin: 4px 0;
-    }
-
-    .mobile-menu {
-      display: none;
-      flex-direction: column;
-      background: var(---mainColor);
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .mobile-menu a {
-      padding: 15px 20px;
-      color: white;
-    }
-
-    .mobile-menu a:hover {
-      background: var(---mainColor);
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-60em);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero {
-      background: url('headerBackground.jpeg') center/cover no-repeat;
-      height: 90vh;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-      margin-top: -5em;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-    }
-
-    section {
-      padding: 30px 0px;
-    }
-
-    .about,
-    .products,
-    .contact,
-    .slideshow-section {
-      text-align: center;
-      max-width: 1000px;
-      margin: auto;
-      transition: ease-in-out 250ms;
-    }
-
-    .about p,
-    .about li,
-    .contact p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #555;
-      margin-bottom: 20px;
-    }
-
-    .products h2,
-    .about h2,
-    .contact h2,
-    .slideshow-section h2 {
-      margin-bottom: 40px;
-      font-size: 2rem;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      max-width: 1200px;
-      margin: auto;
-      padding: 0 20px;
-    }
-
-    .product {
-      background: white;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s;
-    }
-
-    .product:hover {
-      transform: translateY(-5px);
-    }
-
-    .product img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      margin-bottom: 10px;
-    }
-
-    .product h3 {
-      margin-bottom: 10px;
-      font-size: 1.2rem;
-    }
-
-    .contact-form {
-      max-width: 1000px;
-      margin: auto;
-      text-align: left;
-      padding: 0 20px;
-    }
-
-    .contact-form label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 500;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
-      border-radius: 0;
-    }
-
-    .contact-form button {
-      padding: 12px 24px;
-      background: black;
-      color: white;
-      border: none;
-      border-radius: 0;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .contact-form button:hover {
-      background: #222;
-    }
-
-    .moreTextHide {
-      height: 0px;
-      overflow: hidden;
-      transition: 300ms ease-in-out;
-    }
-
-    .moreTextDisplay {
-      height: 800px;
-      transition: 300ms ease-in-out;
-    }
-
-    .read-more-btn {
-      background: black;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 0;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 10px;
-    }
-
-    .read-more-btn:hover {
-      background: #222;
-    }
-
-    footer {
-      background: var(---mainColor);
-      color: white;
-      padding: 40px 20px;
-    }
-
-    .footer-container {
-      max-width: 1200px;
-      margin: auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-
-    .footer-column {
-      flex: 1 1 200px;
-      margin: 20px 0;
-    }
-
-    .footer-column h4 {
-      margin-bottom: 15px;
-      font-size: 1.1rem;
-    }
-
-    .footer-column a {
-      display: block;
-      color: white;
-      margin-bottom: 10px;
-      font-size: 0.95rem;
-    }
-
-    .footer-column a:hover {
-      color: #bbb;
-    }
-
-    .social-icons i {
-      font-size: 1.2rem;
-      margin-right: 15px;
-      color: white;
-      transition: 0.3s;
-    }
-
-    .social-icons i:hover {
-      color: #bbb;
-    }
-
-    .copyright {
-      text-align: center;
-      margin-top: 30px;
-      font-size: 0.85rem;
-      color: white;
-    }
-
-    /* Slideshow styles */
-    .slideshow-container {
-      max-width: 1400px;
-      width: 100%;
-      margin: auto;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .slide {
-      display: none;
-      width: 100%;
-    }
-
-    .slide img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* Back to top button */
-    #backToTop {
-      position: fixed;
-      bottom: 40px;
-      right: 40px;
-      z-index: 999;
-      background: var(---mainColor);
-      color: white;
-      border: none;
-      outline: none;
-      padding: 15px;
-      border-radius: 50%;
-      font-size: 18px;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-    }
-
-    #backToTop.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    #backToTop:hover {
-      background: #a85763;
-    }
-
-    /* TOAST NOTIFICATION STYLES */
-    .toast-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .toast {
-      padding: 15px 20px;
-      color: white;
-      font-weight: bold;
-      min-width: 250px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      animation: fadeInSlide 0.5s ease;
-      opacity: 0.95;
-    }
-
-    .toast-success {
-      background-color: var(---mainColor);
-      border: 2px solid rgb(48, 241, 48);
-    }
-
-    .toast-error {
-      background-color: var(---mainColor);
-      border: 2px solid rgb(255, 0, 0);
-    }
-
-
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      .mobile-menu.show {
-        display: flex;
-      }
-
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-      }
-
-      .navbar {
-        padding: 10px;
-      }
-
-      .imglogo {
-        width: 130px;
-        height: 40px;
-      }
-
-      .toast-container {
-        position: fixed;
-        top: 20px;
-        right: 5px;
-
-      }
-
-
-      @keyframes slidefade {
-        0% {
-          opacity: 0;
-          transform: translate(-18em, -6em);
-        }
-
-        50% {
-          transform: translate(10em, 0);
-        }
-
-        100% {
-          opacity: 1;
-          transform: translate(0, 0);
-        }
-      }
-    }
-
-    @media (max-width: 550px){
-          .moreTextDisplay {
-      height: 900px;
-      transition: 300ms ease-in-out;
-    }
-
-    @media (max-width: 450px){
-      .moreTextDisplay {
-      height: 1000px;
-      transition: 300ms ease-in-out;
-    }}
-
-        @media (max-width: 402px){
-          .moreTextDisplay {
-      height: 1250px;
-      transition: 300ms ease-in-out;
-    }
-    }
-
-    .tv {
-      max-width: 1000px;
-      width: 90%;
-      background: linear-gradient(to bottom, #000 30%, #222 100%);
-      border: 10px solid #111;
-      border-radius: 12px;
-      box-shadow:
-        inset 0 0 30px #000,
-        0 10px 25px rgba(0, 0, 0, 0.7),
-        0 -2px 10px rgba(255, 255, 255, 0.1);
-      position: relative;
-      aspect-ratio: 16 / 9;
-    }
-
-    .screen {
-      background: #000;
-      width: 100%;
-      height: 100%;
-      border-radius: 4px;
-    }
-
-    .stand {
-      width: 100px;
-      height: 20px;
-      background: #222;
-      border-radius: 4px;
-      margin: 20px auto 0;
-      box-shadow:
-        inset 0 0 5px #000,
-        0 2px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    .base {
-      width: 200px;
-      height: 10px;
-      background: #111;
-      margin: 5px auto;
-      border-radius: 5px;
-      box-shadow: inset 0 0 3px #000;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forest Poultry</title>
+<link rel="stylesheet" href="./styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
-  <header id="main-header">
-    <nav class="navbar">
-      <div class="logo">
-        <img src="images/logo.png" alt="logo" class="imglogo">
-      </div>
-      <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#products">Products</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="hamburger" id="hamburger">
-        <span></span><span></span><span></span>
-      </div>
-    </nav>
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="#home" id="mobile-menu-button">Home</a>
-      <a href="#about" id="mobile-menu-button">About</a>
-      <a href="#products" id="mobile-menu-button">Products</a>
-      <a href="#contact" id="mobile-menu-button">Contact</a>
-    </div>
-  </header>
 
-  <section class="hero" id="home">
-    <div>
-      <h1 class="fade">Feel Beautiful Every Day</h1>
-      <p class="fade">Premium hair products for every style and texture.</p>
-    </div>
-  </section>
+<nav class="nav">
+  <div class="nav-brand">Forest Poultry</div>
 
-  <section class="about fade" id="about">
-    <h2>About Us</h2>
-    <p>
-      At <strong>King Girl</strong>, we’re all about empowering strong, beautiful hair—naturally. We exist to help those
-      struggling with thinning strands, bald spots, receding hairlines, or hair that just won’t grow.
+  <div class="nav-links desktop-only">
+    <a href="./about.html">About</a>
+    <a href="#values">Values</a>
+    <a href="#founder">Founder</a>
+    <a href="./Offering.html">Offering</a>
+    <a href="./contact-us.html">Contact Us</a>
+  </div>
 
-      Our plant-powered formulas dive deep into your scalp, nourishing the roots, restoring follicles, and enhancing
-      nutrient absorption. The result? Faster, fuller, healthier hair growth—without any harsh chemicals.
-
-      Because at King Girl, your crown deserves royal treatment.
-    <div id="moreText" class="moreTextHide" style="font-size: 1.1rem; line-height: 1.8; color: #555; margin-bottom: 20px;">
-      <strong>Why Choose King Girl Products?</strong><br /><br />
-      Our products are 100% organic, natural, and plant-based, crafted to support all hair types whether for men, women,
-      or kids.<br/> <br/>
-
-      <strong>Each formula is designed to:</strong><br/>
-      <ul class="benefits" style="text-align: left; padding: 25px; max-width: 650px; margin: 0 auto; ;">
-        <li>Enhance hair growth and deeply nourish the scalp</li>
-        <li>Protect against dandruff and soothe irritation</li>
-        <li>Speed up cell turnover and hair regeneration</li>
-        <li>Improve blood circulation to reduce hair fall</li>
-        <li>Revitalize hair texture and overall health</li>
-        <li>Prevent premature greying and restore natural hair color</li>
-        <li>Deliver a rich dose of vitamins and amino acids</li>
-        <li>Add shine, boost thickness, and improve volume</li>
-        <li>Strengthen thin hair and reduce split ends—without weighing it down</li>
-        <br />
-        <div style="text-align: center;">At King Girl, we believe in results powered by nature safe, effective, and truly transformative for your hair
-        journey.</div>
-      </ul>
-    </div>
-    <button class="read-more-btn" onclick="toggleReadMore()">Read More</button>
-  </section>
-
-  <section class="slideshow-section">
-    <h2>Before & After Results</h2>
-    <div class="slideshow-container ">
-      <div class="slide">
-        <img src="images/slide1.png" alt="Before and After 1">
-      </div>
-      <div class="slide">
-        <img src="images/slide2.png" alt="Before and After 2">
-      </div>
-      <div class="slide">
-        <img src="images/slide3.png" alt="Before and After 3">
-      </div>
-      <div class="slide">
-        <img src="images/slide4.png" alt="Before and After 3">
-      </div>
-      <!-- Add more slides as needed -->
-    </div>
-  </section>
-
-  <section class="products fade" id="products">
-    <h2>Our Best Sellers</h2>
-    <div class="product-grid fade">
-      <div class="product fade">
-        <img src="images/Shampoo.png" alt="Shampoo">
-        <h3>Moisture Shampoo</h3>
-        <p>Hydrating and nourishing for curly and dry hair.</p>
-      </div>
-      <div class="product fade">
-        <img src="images/Serum.png" alt="Serum">
-        <h3>Silk Serum</h3>
-        <p>Smoothens frizz and adds instant shine.</p>
-      </div>
-      <div class="product fade">
-        <img src="images/Spray.png" alt="Spray">
-        <h3>Volumizing Spray</h3>
-        <p>Boosts volume with a weightless feel.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Form -->
-  <section class="contact fade" id="contact">
-    <h2>Contact Us</h2>
-    <div class="contact-form fade">
-      <form id="contactForm">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="email">Email Address</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-
-        <button type="submit">Send Message</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- Toast Container -->
-  <div class="toast-container" id="toastContainer"></div>
-
-  <footer>
-    <div class="footer-container fade">
-      <div class="footer-column fade">
-        <h4>HairBrand</h4>
-        <p>Empowering hair confidence with every product.</p>
-      </div>
-      <div class="footer-column fade">
-        <h4>Explore</h4>
-        <a href="#home" class="fade">Home</a>
-        <a href="#about" class="fade">About</a>
-        <a href="#products" class="fade">Products</a>
-        <a href="#" class="fade">Blog</a>
-      </div>
-      <div class="footer-column fade">
-        <h4>Support</h4>
-        <a href="#contact" class="fade">Contact Us</a>
-        <a href="#" class="fade">FAQs</a>
-        <a href="#" class="fade">Shipping</a>
-      </div>
-      <div class="footer-column social-icons fade">
-        <h4>Follow Us</h4>
-        <a href="#"><i class="fab fa-facebook"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-      </div>
-    </div>
-    <div class="copyright fade">
-      © King Girl All rights reserved.
-    </div>
-  </footer>
-
-  <button id="backToTop" title="Back to Top">
-    <i class="fas fa-chevron-up fade"></i>
+  <!-- Hamburger -->
+  <button class="hamburger" aria-label="Open menu">
+    <span></span>
+    <span></span>
+    <span></span>
   </button>
+</nav>
 
-  <script>
-    const header = document.getElementById('main-header');
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const slides = document.querySelectorAll('.slide');
-    let status = false;
-    let currentIndex = 0;
-
-    window.addEventListener('scroll', () => {
-      if (status === false) {
-        header.classList.toggle('scrolled', window.scrollY > 10);
-      }
-
-    });
-
-    hamburger.addEventListener('click', () => {
-      mobileMenu.classList.toggle('show');
-      if (window.scrollY < 10 && status === false) {
-        header.classList.toggle('scrolled');
-        status = true;
-      }
-    });
-
-    const mobileMenuButtons = document.querySelectorAll("#mobile-menu-button");
-    mobileMenuButtons.forEach(mobileMenuButton => {
-      mobileMenuButton.addEventListener("click", () => {
-        mobileMenu.classList.toggle('show');
-      })
-    })
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+  <div class="mobile-menu-content">
+        <a href="./about.html">About</a>
+    <a href="#values">Values</a>
+    <a href="#founder">Founder</a>
+    <a href="./Offering.html">Offering</a>
+    <a href="./contact-us.html">Contact Us</a>
+  </div>
+</div>
 
 
+<section class="hero">
+  <div class="hero-text">
+    <h2>Grown with Care.<br>Delivered with Pride.<br>From the Forest to Your Table.</h2>
+    <p>
+      Forest Poultry is inspired by nature’s balance, producing wholesome, nutritious chicken through ethical, sustainable farming rooted in long-term African growth.
+    </p>
+    <a href="#about" class="btn-main">Explore Our Products</a>
+    <a href="#founder" class="btn-outline">Meet the Founder</a>
+  </div>
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in-view")
-            entry.target.classList.remove('not-in-view')
-          } else {
-            entry.target.classList.remove("in-view")
-            entry.target.classList.add('not-in-view')
-          }
-        })
-      },
-      {
-        rootMargin: '0px',
-        threshold: [0, 0.1, 1]
-      },)
+  <div class="hero-images">
+    <img class="hero-img-1" src="https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=800&q=80">
+    <img class="hero-img-2" src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=800&q=80" alt="Farm chicken">
+    <img class="hero-img-3" src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=80">
+  </div>
+</section>
 
-    const tags = document.querySelectorAll('.fade')
+<section id="about">
+  <div class="story">
+    <div>
+      <h2 class="section-title">Rooted in Nature. Built for Africa.</h2>
+      <p class="section-text">
+        Forest Poultry is a purpose-led producer inspired by the forest, a system where balance, patience, and care create abundance.
+        <br><br>
+        We farm responsibly, protect quality, and build a scalable poultry business designed for long-term value and nourishment.
+      </p>
+    </div>
+    <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80">
+  </div>
+</section>
 
-    tags.forEach((tag) => {
-      observer.observe(tag)
-    })
+<section id="values" class="values">
+  <h2 class="section-title">Our Values</h2>
+  <div class="values-grid">
+    <div class="value"><h3>Sustainability</h3><p>Farming in harmony with nature.</p></div>
+    <div class="value"><h3>Integrity</h3><p>Trust, transparency, responsibility.</p></div>
+    <div class="value"><h3>Quality</h3><p>No shortcuts. Ever.</p></div>
+    <div class="value"><h3>African Growth</h3><p>Built for scale, rooted in care.</p></div>
+  </div>
+</section>
+
+<section id="founder">
+  <div class="founder">
+    <img src="https://images.unsplash.com/photo-1590086782792-42dd2350140d?auto=format&fit=crop&w=1200&q=80">
+    <div>
+      <h2 class="section-title">Puseletso Phala</h2>
+      <p class="section-text">
+        Forest Poultry was founded on a belief that food must be honest, nourishing, and responsibly grown.
+        <br><br>
+        Inspired by Africa’s land and nature’s resilience, Puseletso built Forest Poultry to last, not to rush.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="forest-moment">
+  <div class="forest-overlay"></div>
+
+  <div class="forest-content">
+    <span class="forest-eyebrow">The Forest Philosophy</span>
+
+    <h2>
+      Nature Does Not Rush.<br>
+      And Neither Do We.
+    </h2>
+
+    <p>
+      At Forest Poultry, growth is intentional. Like a forest, we build systems
+      that sustain life over time, where care, patience, and balance create
+      nourishment you can trust.
+      <br><br>
+      This is not mass production. This is responsible scale.
+      Rooted in Africa. Guided by nature.
+    </p>
+
+    <div class="forest-actions">
+      <a href="#about" class="forest-btn primary">Our Commitment</a>
+      <a href="#founder" class="forest-btn ghost">Leadership & Vision</a>
+    </div>
+  </div>
+
+  <!-- Decorative floating layers -->
+  <div class="forest-orbs">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</section>
 
 
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <!-- BRAND -->
+    <div class="footer-brand">
+      <h2>Forest</h2>
+      <p>
+        Grown with care, guided by nature, and built for Africa.
+        Forest Poultry is a purpose-led producer rooted in integrity,
+        sustainability, and long-term nourishment.
+      </p>
+    </div>
+
+    <!-- LINKS -->
+    <div class="footer-links">
+      <h4>Explore</h4>
+      <a href="#about">About Us</a>
+      <a href="#values">Our Values</a>
+      <a href="#founder">Founder</a>
+      <a href="#gallery">Gallery</a>
+    </div>
+
+    <!-- SOCIAL -->
+    <div class="footer-social">
+      <h4>Connect</h4>
+      <div class="social-icons">
+
+        <!-- Instagram -->
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.9.25 2.3.42.6.23 1 .5 1.4.9.4.4.7.8.9 1.4.17.4.36 1.1.42 2.3.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.9-.42 2.3-.23.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.17-1.1.36-2.3.42-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.9-.25-2.3-.42-.6-.23-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.17-.4-.36-1.1-.42-2.3C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.9.42-2.3.23-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.17 1.1-.36 2.3-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.3a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 10.7a4.2 4.2 0 1 1 0-8.4 4.2 4.2 0 0 1 0 8.4zm6.7-10.9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+          </svg>
+        </a>
+
+        <!-- Facebook -->
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24">
+            <path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2v-2.9h2V9.7c0-2 1.2-3.1 3-3.1.9 0 1.8.16 1.8.16v2h-1c-1 0-1.3.6-1.3 1.2v1.5h2.2l-.35 2.9h-1.85v7A10 10 0 0 0 22 12z"/>
+          </svg>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="#" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24">
+            <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4v15h-4V8zm7.5 0h3.8v2.1h.05c.53-1 1.83-2.1 3.77-2.1 4 0 4.7 2.6 4.7 6v9h-4v-8c0-1.9 0-4.3-2.6-4.3-2.6 0-3 2-3 4.1v8.2h-4V8z"/>
+          </svg>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Forest Poultry</span>
+    <span>From the Forest to Your Table</span>
+  </div>
+</footer>
+<script src="app.js"></script>
 
 
-
-
-    document.querySelectorAll('.animate').forEach(el => observer.observe(el));
-
-    function toggleReadMore() {
-      const moreText = document.getElementById("moreText");
-      const btn = document.querySelector(".read-more-btn");
-      moreText.classList.toggle("moreTextDisplay")
-      if (moreText.classList.contains("moreTextDisplay")) {
-        btn.textContent = "Read Less";
-      } else {
-        btn.textContent = "Read More";
-      }
-    }
-
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.style.display = (i === index) ? 'block' : 'none';
-      });
-    }
-
-    function nextSlide() {
-      currentIndex = (currentIndex + 1) % slides.length;
-      showSlide(currentIndex);
-      /////////////////Text
-      const slideObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add("slide-in-view")
-              entry.target.classList.remove('slide-not-in-view')
-            } else {
-              entry.target.classList.remove("slide-in-view")
-              entry.target.classList.add('slide-not-in-view')
-            }
-          })
-        },
-        {
-          rootMargin: '0px',
-          threshold: [0, 0.1, 1]
-        },)
-
-      const tags = document.querySelectorAll('.slide')
-
-      tags.forEach((tag) => {
-        slideObserver.observe(tag)
-      })////////////////Test
-    }
-
-    showSlide(currentIndex);
-    setInterval(nextSlide, 7000);
-
-    // Back to Top
-    const backToTopButton = document.getElementById('backToTop');
-
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTopButton.classList.add('show');
-      } else {
-        backToTopButton.classList.remove('show');
-      }
-    });
-
-    backToTopButton.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-
-    function showToast(message, isSuccess = true) {
-      const toast = document.createElement('div');
-      toast.classList.add('toast', isSuccess ? 'toast-success' : 'toast-error');
-      toast.textContent = message;
-      document.getElementById('toastContainer').appendChild(toast);
-      setTimeout(() => toast.remove(), 4000);
-    }
-
-    // Simulated form handler
-    document.getElementById("contactForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const isSuccess = Math.random() > 0.3; // Simulated logic
-      if (isSuccess) {
-        showToast("✅ Your message was sent successfully!", true);
-        this.reset();
-      } else {
-        showToast("❌ Failed to send message. Please try again.", false);
-      }
-    });
-  </script>
 </body>
-
 </html>

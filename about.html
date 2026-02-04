@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us – Forest Poultry</title>
+  <link rel="stylesheet" href="./styles.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --dark: #0c2419;
+      --forest: #1f4d36;
+      --leaf: #3c7d5a;
+      --earth: #b08d57;
+      --cream: #f6f5f1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: #111;
+      overflow-x: hidden;
+    }
+
+    /* ================= HERO ================= */
+    .about-hero {
+      min-height: 85vh;
+      display: grid;
+      place-items: center;
+      padding: 160px 8% 120px;
+      background:
+        linear-gradient(rgba(12, 36, 25, .85), rgba(12, 36, 25, .95)),
+        url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80");
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .about-hero::after {
+      content: "";
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: var(--cream);
+      transform: skewY(-4deg);
+      transform-origin: top left;
+
+    }
+
+    .about-hero-content {
+      max-width: 900px;
+      text-align: center;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .about-hero span {
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      font-size: .75rem;
+      opacity: .8;
+    }
+
+    .about-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      margin: 25px 0;
+      line-height: 1.15;
+    }
+
+    .about-hero p {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      opacity: .9;
+    }
+
+    /* ================= STORY ================= */
+    .section {
+      padding: 140px 8%;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .story-text h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+    }
+
+    .story-text p {
+      line-height: 1.9;
+      opacity: .85;
+      margin-bottom: 22px;
+    }
+
+    .story-image {
+      border-radius: 30px;
+      overflow: hidden;
+      transform: rotate(-2deg);
+      transition: .6s ease;
+    }
+
+    .story-image:hover {
+      transform: rotate(0) scale(1.04);
+    }
+
+    .story-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ================= PHILOSOPHY ================= */
+    .philosophy {
+      background: linear-gradient(135deg, var(--dark), var(--forest));
+      color: #fff;
+      position: relative;
+    }
+
+    .philosophy::before,
+    .philosophy::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 120px;
+      background: var(--cream);
+      left: 0;
+    }
+
+    .philosophy::before {
+      top: -1px;
+      transform: skewY(4deg);
+      height: 80px;
+    }
+
+    .philosophy::after {
+      bottom: -1px;
+      transform: skewY(-4deg);
+      height: 80px;
+    }
+
+    .philosophy-inner {
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+      animation: fadeUp 1.4s ease forwards;
+    }
+
+    .philosophy h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 35px;
+    }
+
+    .philosophy p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      opacity: .9;
+    }
+
+    /* ================= MISSION ================= */
+    .mission {
+      text-align: center;
+    }
+
+    .mission h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+    }
+
+    .mission p {
+      max-width: 780px;
+      margin: auto;
+      font-size: 1.1rem;
+      line-height: 1.9;
+      opacity: .85;
+    }
+
+    /* ================= VALUES ================= */
+    .values-grid {
+      margin-top: 90px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+    }
+
+    .value-card {
+      background: #fff;
+      border-radius: 26px;
+      padding: 45px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, .08);
+      transition: .4s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-12px);
+    }
+
+    .value-card h3 {
+      font-family: 'Playfair Display', serif;
+      margin-bottom: 18px;
+      color: var(--forest);
+    }
+
+    .value-card p {
+      opacity: .8;
+      line-height: 1.8;
+    }
+
+    /* ================= ANIMATIONS ================= */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media(max-width: 900px) {
+      .about-hero h1 {
+        font-size: 2.4rem;
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 100px 7%;
+      }
+    }
+
+    .story-grid {
+  margin-bottom: 140px;
+}
+
+.story-grid.reverse {
+  direction: rtl;
+}
+
+.story-grid.reverse > * {
+  direction: ltr;
+}
+
+@media (max-width: 900px) {
+  .story-grid,
+  .story-grid.reverse {
+    direction: ltr;
+    margin-bottom: 90px;
+  }
+
+  .story-image {
+    transform: none;
+  }
+}
+
+.story-more {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .8s ease, opacity .6s ease;
+  opacity: 0;
+}
+
+.story-text.open .story-more {
+  max-height: 1200px;
+  opacity: 1;
+}
+
+.read-more {
+
+  background: none;
+  border: none;
+  color: var(--forest);
+  font-weight: 600;
+  letter-spacing: .05em;
+  cursor: pointer;
+  position: relative;
+  padding-bottom: 6px;
+  width: 100px;
+  margin: 25px auto;
+}
+
+.read-more::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--forest);
+  transition: width .4s ease;
+}
+
+.read-more:hover::after {
+  width: 100%;
+}
+
+.beliefs {
+  margin: 25px 0;
+  padding-left: 18px;
+}
+
+.beliefs li {
+  margin-bottom: 10px;
+  opacity: .9;
+}
+
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="nav-brand">Forest</div>
+
+    <div class="nav-links desktop-only">
+      <a href="./index.html">Home</a>
+      <a href="#ourstory">Our Story</a>
+      <a href="#ourmission">Our Mission</a>
+      <a href="./Offering.html">Offering</a>
+      <a href="./contact-us.html">Contact Us</a>
+    </div>
+
+    <!-- Hamburger -->
+    <button class="hamburger" aria-label="Open menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <div class="mobile-menu-content">
+      <a href="./index.html">Home</a>
+      <a href="./Offering.html">Offering</a>
+      <a href="./contact-us.html">Contact Us</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="about-hero">
+    <div class="about-hero-content">
+      <span>About Forest Poultry</span>
+      <h1>Farming With Intention.<br>Guided by Nature.</h1>
+      <p>
+        Forest Poultry Farming is built on balance, resilience, and respect for life,
+        producing wholesome poultry through responsible, purpose-led agriculture.
+      </p>
+    </div>
+  </section>
+
+  <!-- STORY -->
+ <section class="section" id="ourstory">
+
+  <!-- ROW 1 -->
+  <div class="story-grid">
+    <div class="story-text">
+      <h2>Our Story</h2>
+
+      <p>
+        Forest Poultry Farming began long before the first chicken coop was built.
+        It started with a young girl who developed a deep appreciation for nature as a system of balance,
+        resilience, and growth – where life develops organically, responsibly and with intent.
+      </p>
+
+      <div class="story-more">
+        <p>
+          From an early age, Puseletso showed a strong interest and passion in agriculture, initially through
+          working with plants. That early exposure shaped a practical understanding of how quality food is
+          produced and why working in harmony with the land matters. Growing up in a household where chicken
+          was a staple, particularly because a family member could not consume other meats, she recognised the
+          central role poultry plays in providing accessible, nutritious meals that bring people together.
+        </p>
+      </div>
+
+      <button class="read-more">Read more</button>
+    </div>
+
+    <div class="story-image">
+      <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80">
+    </div>
+  </div>
+
+  <!-- ROW 2 (REVERSED) -->
+  <div class="story-grid reverse">
+    <div class="story-text">
+      <p>
+        Over time, this understanding evolved into a clear vision: to build a poultry business rooted in natural
+        principles, guided by quality and nutrition, grown with intention, and committed to sustainable farming
+        practices.
+      </p>
+
+      <div class="story-more">
+        <p>
+          For Puseletso, poultry farming was never simply a commercial pursuit. It became an opportunity to
+          build a business focused on long-term value, prioritising quality production, responsible land use,
+          and consistency in output. Nature served as both a reference point and a benchmark, reinforcing the
+          importance of balance, nourishment, and environmental responsibility.
+        </p>
+      </div>
+
+      <button class="read-more">Read more</button>
+    </div>
+
+    <div class="story-image">
+      <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=1200&q=80">
+    </div>
+  </div>
+
+  <!-- ROW 3 -->
+  <div class="story-grid">
+    <div class="story-text">
+      <p>
+        Forest Poultry Farming was established on the belief that how chickens are farmed directly influences
+        product quality. Every chicken reflects this approach: carefully farmed, organically grown, and
+        produced using methods that protect the land, respect ecosystems, and support the health of the
+        communities served.
+      </p>
+
+      <div class="story-more">
+        <p>
+          The business began at home, with the simple intention of providing consistent, nutritious poultry for
+          family consumption. While the beginnings were modest, the ambition has always been clear. Africa
+          needs poultry producers that can scale responsibly, delivering high-quality, appetising products
+          while maintaining sustainable practices.
+        </p>
+
+        <p>
+          Forest Poultry Farming is focused on growing into one of Africa’s leading poultry producers without
+          compromising the principles that define the brand. At its core, the business remains committed to
+          balanced farming, responsible growth, and building a poultry operation designed for long-term
+          resilience, trust, and value.
+        </p>
+
+        <p>
+          At its heart, Forest Poultry Farming is committed to farming the way nature teaches us –
+          with balance, resilience, respect for life, and care for the planet.
+        </p>
+
+        <ul class="beliefs">
+          <li>Goodness comes from purity.</li>
+          <li>Healthy chickens create healthy homes.</li>
+          <li>Nature knows the way.</li>
+          <li>Nourishment should be part of every meal.</li>
+        </ul>
+
+        <p><strong>Forest Poultry Farming is more than farming. It is purpose-led agriculture.</strong></p>
+      </div>
+
+      <button class="read-more">Read more</button>
+    </div>
+
+    <div class="story-image">
+      <img src="https://images.unsplash.com/photo-1589927986089-35812388d1f4?auto=format&fit=crop&w=1200&q=80">
+    </div>
+  </div>
+
+</section>
+
+
+  <!-- PHILOSOPHY -->
+  <section class="section philosophy">
+    <div class="philosophy-inner">
+      <h2>The Forest Philosophy</h2>
+      <p>
+        Nature does not rush. It grows with intention.
+        Forest Poultry applies this principle to farming,
+        building systems that prioritise quality, animal welfare,
+        and environmental responsibility.
+        <br><br>
+        Every chicken reflects this approach: carefully farmed,
+        organically grown, and produced in harmony with the land.
+      </p>
+    </div>
+  </section>
+
+  <!-- MISSION -->
+  <section class="section mission" id="ourmission">
+    <h2>Our Mission</h2>
+    <p>
+      Our mission is to build a modern, sustainable poultry enterprise
+      grounded in nature, driven by quality, and designed for scalable
+      growth into regional and international markets,
+      without compromising the principles that define us.
+    </p>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <h3>Nature First</h3>
+        <p>We farm with respect for natural systems and responsible land use.</p>
+      </div>
+
+      <div class="value-card">
+        <h3>Quality Always</h3>
+        <p>Freshness, cleanliness, and care at every stage of production.</p>
+      </div>
+
+      <div class="value-card">
+        <h3>Community Growth</h3>
+        <p>Nourishing families and creating opportunity through agriculture.</p>
+      </div>
+
+      <div class="value-card">
+        <h3>Purpose-Driven</h3>
+        <p>Built from passion, vision, and belief in Africa’s future.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+
+      <!-- BRAND -->
+      <div class="footer-brand">
+        <h2>Forest</h2>
+        <p>
+          Grown with care, guided by nature, and built for Africa.
+          Forest Poultry is a purpose-led producer rooted in integrity,
+          sustainability, and long-term nourishment.
+        </p>
+      </div>
+
+      <!-- LINKS -->
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <a href="#about">About Us</a>
+        <a href="#values">Our Values</a>
+        <a href="#founder">Founder</a>
+        <a href="#gallery">Gallery</a>
+      </div>
+
+      <!-- SOCIAL -->
+      <div class="footer-social">
+        <h4>Connect</h4>
+        <div class="social-icons">
+
+          <!-- Instagram -->
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.9.25 2.3.42.6.23 1 .5 1.4.9.4.4.7.8.9 1.4.17.4.36 1.1.42 2.3.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.9-.42 2.3-.23.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.17-1.1.36-2.3.42-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.9-.25-2.3-.42-.6-.23-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.17-.4-.36-1.1-.42-2.3C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.9.42-2.3.23-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.17 1.1-.36 2.3-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.3a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 10.7a4.2 4.2 0 1 1 0-8.4 4.2 4.2 0 0 1 0 8.4zm6.7-10.9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+            </svg>
+          </a>
+
+          <!-- Facebook -->
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2v-2.9h2V9.7c0-2 1.2-3.1 3-3.1.9 0 1.8.16 1.8.16v2h-1c-1 0-1.3.6-1.3 1.2v1.5h2.2l-.35 2.9h-1.85v7A10 10 0 0 0 22 12z" />
+            </svg>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4v15h-4V8zm7.5 0h3.8v2.1h.05c.53-1 1.83-2.1 3.77-2.1 4 0 4.7 2.6 4.7 6v9h-4v-8c0-1.9 0-4.3-2.6-4.3-2.6 0-3 2-3 4.1v8.2h-4V8z" />
+            </svg>
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Forest Poultry</span>
+      <span>From the Forest to Your Table</span>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+
+</html>
