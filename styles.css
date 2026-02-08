@@ -51,7 +51,7 @@ nav a {
   height: 100vh;
   background:
     linear-gradient(rgba(12,36,25,.65), rgba(12,36,25,.9)),
-    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=80");
+    url("./asserts/heroimage.jpeg");
   background-size: cover;
   background-position: center;
   display: grid;
@@ -137,6 +137,11 @@ nav a {
   top: 0;
   left: 40px;
 }
+
+#main {
+  box-shadow: none;
+}
+
 .hero-img-2 {
   bottom: 0;
   right: 0;
@@ -640,7 +645,7 @@ footer {
   align-items: center;
   background: rgba(12,36,25,.65);
   backdrop-filter: blur(14px);
-  z-index: 999;
+  z-index: 1000;
 }
 
 .nav-brand {
@@ -648,6 +653,13 @@ footer {
   font-size: 1.8rem;
   color: #fff;
 }
+
+.nav-brand img {
+  width: 150px;
+  height: 50px;
+}
+
+
 
 .nav-links a {
   color: #fff;
@@ -692,6 +704,11 @@ footer {
   transform: translateY(-9px) rotate(-45deg);
 }
 
+.Slogan {
+  font-style: italic;
+  font-weight: 700;
+}
+
 /* =========================
    MOBILE MENU
 ========================= */
@@ -699,7 +716,7 @@ footer {
   position: fixed;
   background:
     linear-gradient(180deg, rgba(12,36,25,.92), rgba(12,36,25,.98)),
-    url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80");
+    url("./asserts/original-rotisserie-oven-whole-chicken-mobile.jpg");
   background-size: cover;
   background-position: center;
   backdrop-filter: blur(10px);
@@ -712,7 +729,7 @@ footer {
   width: 50%;
   height: 300px;
   right: 0;
-  top: 4rem;
+  top: 5.5rem;
   border-bottom-left-radius:80% ;
   overflow: hidden;
 }
@@ -797,4 +814,41 @@ footer {
   .hero-images {
   display: none;
   }
+}
+
+/* INITIAL STATE */
+.animate {
+  opacity: 0;
+  transform: translateY(32px) scale(0.98);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(.22,.61,.36,1);
+  will-change: transform, opacity;
+}
+
+/* ACTIVE (WHEN IN VIEW) */
+.animate.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* OPTIONAL: subtle icon pop */
+.animate.is-visible .bullet {
+  animation: bulletPop 0.5s ease forwards;
+}
+
+@keyframes bulletPop {
+  from { transform: scale(0.6); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width:600px) {
+ .nav-brand img {
+  width: 100px;
+  height: 40px;
+}
+
+.nav {
+  padding: 5px 20px;
+}
 }

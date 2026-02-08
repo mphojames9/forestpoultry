@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Us – Forest Poultry</title>
-<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="../styles.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
@@ -30,7 +30,7 @@ body {
   min-height: 65vh;
   background:
     linear-gradient(rgba(12,36,25,.88), rgba(12,36,25,.95)),
-    url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80");
+    url("../asserts/packing.png");
   background-size: cover;
   background-position: center;
   display: grid;
@@ -188,8 +188,9 @@ textarea:focus {
   }
 
   .contact-form {
-    padding: 45px 35px;
+    padding: 45px 5px;
   }
+
 }
 
 @media (max-height: 780px){
@@ -204,12 +205,14 @@ textarea:focus {
 
 <body>
   <nav class="nav">
-  <div class="nav-brand">Forest</div>
+  <div class="nav-brand animate">
+    <img src="../asserts/Image Feb 8, 2026, 09_20_39 AM.png" alt="">
+  </div>
 
   <div class="nav-links desktop-only">
-    <a href="./index.html">Home</a>
-    <a href="./about.html">About</a>
-    <a href="./Offering.html">Offering</a>
+    <a href="../index.html">Home</a>
+    <a href="../about/index.html">About</a>
+    <a href="../offering/index.html">Offering</a>
   </div>
 
   <!-- Hamburger -->
@@ -223,15 +226,15 @@ textarea:focus {
 <!-- Mobile Menu -->
 <div class="mobile-menu">
   <div class="mobile-menu-content">
-        <a href="./index.html">Home</a>
-    <a href="./about.html">About</a>
-    <a href="./Offering.html">Offering</a>
+    <a href="../index.html">Home</a>
+    <a href="../about/index.html">About</a>
+    <a href="../offering/index.html">Offering</a>
   </div>
 </div>
 
 <!-- HERO -->
 <section class="contact-hero">
-  <div class="contact-hero-content">
+  <div class="contact-hero-content animate">
     <span>Contact Us</span>
     <h1>Let’s Grow Together</h1>
     <p>
@@ -246,7 +249,7 @@ textarea:focus {
 <section class="contact-section">
 
   <!-- INFO -->
-  <div class="contact-info">
+  <div class="contact-info animate">
     <h2>Get in Touch</h2>
     <p>
       Forest Poultry is built on transparency, care, and
@@ -255,7 +258,7 @@ textarea:focus {
       we’re here to connect.
     </p>
 
-    <div class="contact-points">
+    <div class="contact-points animate">
       <div class="contact-point">• Wholesale & Supply Enquiries</div>
       <div class="contact-point">• Retail & Distribution</div>
       <div class="contact-point">• Partnerships & Growth</div>
@@ -293,7 +296,7 @@ textarea:focus {
   <div class="footer-inner">
 
     <!-- BRAND -->
-    <div class="footer-brand">
+    <div class="footer-brand animate">
       <h2>Forest</h2>
       <p>
         Grown with care, guided by nature, and built for Africa.
@@ -303,7 +306,7 @@ textarea:focus {
     </div>
 
     <!-- LINKS -->
-    <div class="footer-links">
+    <div class="footer-links animate">
       <h4>Explore</h4>
       <a href="#about">About Us</a>
       <a href="#values">Our Values</a>
@@ -312,9 +315,9 @@ textarea:focus {
     </div>
 
     <!-- SOCIAL -->
-    <div class="footer-social">
-      <h4>Connect</h4>
-      <div class="social-icons">
+    <div class="footer-social animate">
+      <h4 class="animate">Connect</h4>
+      <div class="social-icons animate">
 
         <!-- Instagram -->
         <a href="#" aria-label="Instagram">
@@ -342,11 +345,11 @@ textarea:focus {
 
   </div>
 
-  <div class="footer-bottom">
-    <span>© 2026 Forest Poultry</span>
+  <div class="footer-bottom animate">
+    <span>© 2026 Forest Poultry - <span class="Slogan">Chicken. Pure Living</span></span>
     <span>From the Forest to Your Table</span>
   </div>
 </footer>
-<script src="app.js"></script>
+<script src="../app.js"></script>
 </body>
 </html>

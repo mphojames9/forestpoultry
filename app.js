@@ -23,19 +23,22 @@ document.querySelectorAll('.mobile-menu a').forEach(link => {
     });
   });
 
-   const images = document.querySelectorAll('.hero-images img');
-  let current = 0;
+  const animate = document.querySelectorAll('.animate');
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        } else {
+          // 🔥 remove class so animation replays every time
+          entry.target.classList.remove('is-visible');
+        }
+      });
+    },
+    {
+      threshold: 0.35
+    }
+   
+  );
 
-  // Initialize first image as active
-  images[current].classList.add('active');
-
-  setInterval(() => {
-    // Remove active from current image
-    images[current].classList.remove('active');
-
-    // Move to next image (loop)
-    current = (current + 1) % images.length;
-
-    // Add active to next image
-    images[current].classList.add('active');
-  }, 6000); // 6000ms = 6 seconds
+  animate.forEach(card => observer.observe(card));
