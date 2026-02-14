@@ -67,3 +67,86 @@ Displays:
 - Offering
 - Contact Us
 
+---
+
+# License
+
+## Forest Poultry Proprietary Commercial License (FP-PCL) v1.0
+
+Copyright © 2026 Forest Poultry.  
+All Rights Reserved.
+
+This software and all associated files, including but not limited to:
+
+- Source code
+- Design structure
+- Layout architecture
+- Assets (images, branding, graphics)
+- Text content
+- Business concepts
+- Documentation
+
+are the exclusive property of Forest Poultry.
+
+---
+
+### Permitted Use
+
+Access to this repository, if granted, allows you to:
+
+- View the source code for internal review purposes
+- Contribute to the project if officially authorized
+- Deploy internally for Forest Poultry business operations
+
+---
+
+### Prohibited Actions
+
+You may NOT, without explicit written permission from Forest Poultry:
+
+- Redistribute this project in whole or in part
+- Modify and republish the project
+- Copy or reuse the design, branding, structure, or content
+- Use the assets or business identity for commercial purposes
+- Sell, sublicense, or transfer the software
+- Create derivative works for public or commercial use
+
+---
+
+### No Open-Source Grant
+
+This project is NOT open-source.
+
+No rights are granted under:
+
+- MIT
+- GPL
+- Apache
+- Creative Commons
+- Or any other open-source license framework
+
+Unless explicitly stated in writing by Forest Poultry.
+
+---
+
+### Enforcement
+
+Unauthorized reproduction, redistribution, or commercial exploitation may result in:
+
+- Immediate termination of access
+- Legal action
+- Claims for damages
+
+---
+
+### Contact
+
+For licensing inquiries or permissions, contact:
+
+Forest Poultry  
+Business Administration  
+(Official contact details to be inserted)
+
+---
+
+This license applies globally and remains in effect unless replaced by a formally issued written agreement.
