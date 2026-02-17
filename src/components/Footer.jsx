@@ -1,14 +1,51 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 
 export default function Footer() {
+  const footerRef = useRef(null);
+
+    useEffect(() => {
+      const observerOpts = {
+        root: null,
+        rootMargin: "0px",
+        threshold: [0, 0.1, 0.5],
+      };
+  
+      const slideObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+  
+          if (entry.isIntersecting && entry.intersectionRatio > 0.08) {
+            el.classList.add("visible");
+            el.classList.remove("out");
+  
+            if (el.classList.contains("slide-left") || el.classList.contains("slide-right")) {
+              el.classList.add("in");
+            }
+          } else {
+            el.classList.remove("in");
+            el.classList.add("out");
+            el.classList.remove("visible");
+          }
+        });
+      }, observerOpts);
+  
+      const targets = footerRef.current.querySelectorAll(
+        ".reveal, .slide-left, .slide-right"
+      );
+  
+      targets.forEach((el) => slideObserver.observe(el));
+      return () => slideObserver.disconnect();
+    }, []);
+
   return (
-    <footer className="site-footer">
+    <footer className="site-footer" ref={footerRef}>
       <div className="footer-inner">
         
         {/* BRAND */}
-        <div className="footer-brand animate">
-          <h2>Forest</h2>
-          <p>
+        <div className="footer-brand">
+          <h2 className="slide-right">Forest</h2>
+          <p className="slide-left">
             Grown with care, guided by nature, and built for Africa.
             Forest Poultry is a purpose-led producer rooted in integrity,
             sustainability, and long-term nourishment.
@@ -16,7 +53,7 @@ export default function Footer() {
         </div>
 
         {/* INTERNAL LINKS */}
-        <div className="footer-links animate">
+        <div className="footer-links slide-right">
           <h4>Explore</h4>
           <Link to="/about">About Us</Link>
           <Link to="/#values">Our Values</Link>
@@ -25,10 +62,10 @@ export default function Footer() {
         </div>
 
         {/* SOCIAL */}
-        <div className="footer-social animate">
+        <div className="footer-social slide-left">
           <h4>Connect</h4>
 
-          <div className="social-icons">
+          <div className="social-icons ">
             
             {/* Instagram */}
             <a
@@ -37,9 +74,9 @@ export default function Footer() {
               rel="noopener noreferrer"
               aria-label="Instagram"
             >
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.9.25 2.3.42.6.23 1 .5 1.4.9.4.4.7.8.9 1.4.17.4.36 1.1.42 2.3.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.9-.42 2.3-.23.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.17-1.1.36-2.3.42-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.9-.25-2.3-.42-.6-.23-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.17-.4-.36-1.1-.42-2.3C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.9.42-2.3.23-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.17 1.1-.36 2.3-.42C8.4 2.2 8.8 2.2 12 2.2z" />
-              </svg>
+              <svg viewBox="0 0 24 24">
+            <path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.9.25 2.3.42.6.23 1 .5 1.4.9.4.4.7.8.9 1.4.17.4.36 1.1.42 2.3.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.9-.42 2.3-.23.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.17-1.1.36-2.3.42-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.9-.25-2.3-.42-.6-.23-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.17-.4-.36-1.1-.42-2.3C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.9.42-2.3.23-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.17 1.1-.36 2.3-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.3a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zm0 10.7a4.2 4.2 0 1 1 0-8.4 4.2 4.2 0 0 1 0 8.4zm6.7-10.9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+          </svg>
             </a>
 
             {/* Facebook */}
@@ -71,7 +108,7 @@ export default function Footer() {
       </div>
 
       {/* BOTTOM */}
-      <div className="footer-bottom animate">
+      <div className="footer-bottom slide-right">
         <span>
           © {new Date().getFullYear()} Forest Poultry - {" "}
           <span className="slogan"><i>Chicken. Pure Living</i></span>

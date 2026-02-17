@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import logo from "../assets/Image Feb 8, 2026, 09_20_39 AM.png";
 import heroAbout from "../assets/heroAbout.png";
 import storyImg1 from "../assets/ourstory.png";
 import storyImg2 from "../assets/factoty.png";
 import storyImg3 from "../assets/pakaging.png";
+import { FaCheckCircle } from "react-icons/fa";
 
 export default function About() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const divRef = useRef(null);
   const [openSections, setOpenSections] = useState({
     one: false,
     two: false,
@@ -21,8 +23,44 @@ export default function About() {
     }));
   };
 
+  
+  useEffect(() => {
+      const observerOpts = {
+        root: null,
+        rootMargin: "0px",
+        threshold: [0, 0.1, 0.5],
+      };
+  
+      const slideObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+  
+          if (entry.isIntersecting && entry.intersectionRatio > 0.08) {
+            el.classList.add("visible");
+            el.classList.remove("out");
+  
+            if (el.classList.contains("slide-left") || el.classList.contains("slide-right")) {
+              el.classList.add("in");
+            }
+          } else {
+            el.classList.remove("in");
+            el.classList.add("out");
+            el.classList.remove("visible");
+          }
+        });
+      }, observerOpts);
+  
+      const targets = divRef.current.querySelectorAll(
+        ".reveal, .slide-left, .slide-right"
+      );
+  
+      targets.forEach((el) => slideObserver.observe(el));
+      return () => slideObserver.disconnect();
+    }, []);
+
   return (
     <>
+    <div className="main" ref={divRef}>
       {/* NAV */}
       <nav className="nav">
         <div className="nav-brand">
@@ -49,7 +87,7 @@ export default function About() {
       </nav>
 
       {menuOpen && (
-        <div className="mobile-menu">
+        <div className="mobile-menu open">
           <div className="mobile-menu-content">
             <a href="/">Home</a>
             <a href="#ourstory">Our Story</a>
@@ -68,13 +106,13 @@ export default function About() {
         }}
       >
         <div className="about-hero-content">
-          <span>About Forest Poultry</span>
-          <h1>
+          <span className="slide-left">About Forest Poultry</span>
+          <h1 className="slide-right">
             Farming With Intention.
             <br />
             Guided by Nature.
           </h1>
-          <p>
+          <p className="slide-left">
             Forest Poultry Farming is built on balance, resilience, and respect
             for life, producing wholesome poultry through responsible,
             purpose-led agriculture.
@@ -86,60 +124,68 @@ export default function About() {
       <section className="section" id="ourstory">
         {/* ROW 1 */}
         <div className="story-grid">
-          <div className={`story-text ${openSections.one ? "open" : ""}`}>
+          <div className={`story-text slide-right ${openSections.one ? "open" : ""}`}>
             <h2>Our Story</h2>
             <p>
-              Forest Poultry Farming began long before the first chicken coop
-              was built...
+              Forest Poultry Farming began long before the first chicken coop was built.
+              It started with a young girl who developed a deep appreciation for nature as a system of balance,
+              resilience, and growth – where life develops organically, responsibly and with intent.
             </p>
 
             {openSections.one && (
-              <div className="story-more">
+              <div className="story-more slide-left">
                 <p>
-                  From an early age, Puseletso showed a strong interest and
-                  passion in agriculture...
+                  From an early age, Puseletso showed a strong interest and passion in agriculture, initially through working with plants.
+                  That early exposure shaped a practical understanding of how quality food is produced and why working
+                  in harmony with the land matters. Growing up in a household where chicken was a staple, particularly
+                  because a family member could not consume other meats, she recognised the central role poultry plays
+                  in providing accessible, nutritious meals that bring people together.
                 </p>
               </div>
             )}
 
             <button
-              className="read-more"
+              className="read-more slide-right"
               onClick={() => toggleSection("one")}
             >
               {openSections.one ? "Read less" : "Read more"}
             </button>
           </div>
 
-          <div className="story-image">
+          <div className="story-image slide-left">
             <img src={storyImg1} alt="Our story" />
           </div>
         </div>
 
         {/* ROW 2 */}
         <div className="story-grid reverse">
-          <div className={`story-text ${openSections.two ? "open" : ""}`}>
-            <p>
-              Over time, this understanding evolved into a clear vision...
+          <div className={`story-text   ${openSections.two ? "open" : ""}`}>
+            <p className="slide-right">
+              Over time, this understanding evolved into a clear vision: to build a poultry business
+              rooted in natural principles, guided by quality and nutrition, grown with intention,
+              and committed to sustainable farming practices.
             </p>
 
             {openSections.two && (
               <div className="story-more">
-                <p>
-                  For Puseletso, poultry farming was never simply a commercial
-                  pursuit...
+                <p className="slide-left">
+                  For Puseletso, poultry farming was never simply a commercial pursuit. It became an
+                  opportunity to build a business focused on long-term value, prioritising quality production,
+                  responsible land use, and consistency in output. Nature served as both a reference point and
+                  a benchmark, reinforcing the importance of balance, nourishment, and environmental responsibility.
                 </p>
               </div>
             )}
 
             <button
-              className="read-more"
+              className="read-more slide-right"
               onClick={() => toggleSection("two")}
             >
               {openSections.two ? "Read less" : "Read more"}
             </button>
           </div>
 
-          <div className="story-image">
+          <div className="story-image slide-left">
             <img src={storyImg2} alt="Factory" />
           </div>
         </div>
@@ -147,24 +193,40 @@ export default function About() {
         {/* ROW 3 */}
         <div className="story-grid">
           <div className={`story-text ${openSections.three ? "open" : ""}`}>
-            <p>
-              Forest Poultry Farming was established on the belief that how
-              chickens are farmed directly influences product quality...
+            <p className="slide-right">
+              Forest Poultry Farming was established on the belief that how chickens are farmed directly influences product quality.
+              Every chicken reflects this approach: carefully farmed, organically grown, and produced using methods that protect the land,
+              respect ecosystems, and support the health of the communities served.
             </p>
 
             {openSections.three && (
               <div className="story-more">
-                <p>
-                  The business began at home with the simple intention...
+                <p className="slide-left">
+                  The business began at home, with the simple intention of providing consistent, nutritious poultry for
+                  family consumption. While the beginnings were modest, the ambition has always been clear. Africa
+                  needs poultry producers that can scale responsibly, delivering high-quality, appetising products
+                  while maintaining sustainable practices.
                 </p>
-                <ul className="beliefs">
-                  <li>Goodness comes from purity.</li>
-                  <li>Healthy chickens create healthy homes.</li>
-                  <li>Nature knows the way.</li>
-                  <li>Nourishment should be part of every meal.</li>
+
+                <p className="slide-right">
+                  Forest Poultry Farming is focused on growing into one of Africa’s leading poultry producers without
+                  compromising the principles that define the brand. At its core, the business remains committed to
+                  balanced farming, responsible growth, and building a poultry operation designed for long-term
+                  resilience, trust, and value.
+                </p>
+
+                <p className="slide-left">
+                  At its heart, Forest Poultry Farming is committed to farming the way nature teaches us –
+                  with balance, resilience, respect for life, and care for the planet.
+                </p>
+                <ul className="beliefs slide-right">
+                  <li><FaCheckCircle size={16} /> Goodness comes from purity.</li>
+                  <li><FaCheckCircle size={16} /> Healthy chickens create healthy homes.</li>
+                  <li><FaCheckCircle size={16} /> Nature knows the way.</li>
+                  <li><FaCheckCircle size={16} /> Nourishment should be part of every meal.</li>
                 </ul>
                 <p>
-                  <strong>
+                  <strong className="slide-left">
                     Forest Poultry Farming is more than farming. It is
                     purpose-led agriculture.
                   </strong>
@@ -173,14 +235,14 @@ export default function About() {
             )}
 
             <button
-              className="read-more"
+              className="read-more slide-right"
               onClick={() => toggleSection("three")}
             >
               {openSections.three ? "Read less" : "Read more"}
             </button>
           </div>
 
-          <div className="story-image">
+          <div className="story-image slide-left">
             <img src={storyImg3} alt="Packaging" />
           </div>
         </div>
@@ -189,44 +251,52 @@ export default function About() {
       {/* PHILOSOPHY */}
       <section className="section philosophy">
         <div className="philosophy-inner">
-          <h2>The Forest Philosophy</h2>
-          <p>
-            Nature does not rush. It grows with intention. Forest Poultry
-            applies this principle to farming...
+          <h2 className="slide-right">The Forest Philosophy</h2>
+          <p className="slide-left">
+            Nature does not rush. It grows with intention.
+            Forest Poultry applies this principle to farming,
+            building systems that prioritise quality, animal welfare,
+            and environmental responsibility.
+            <br /><br />
+            Every chicken reflects this approach: carefully farmed,
+            organically grown, and produced in harmony with the land.
           </p>
         </div>
       </section>
 
       {/* MISSION */}
-      <section className="section mission" id="ourmission">
-        <h2>Our Mission</h2>
-        <p>
+      <section className="section mission slide-left" id="ourmission">
+        <h2 className="slide-right">Our Mission</h2>
+        <p className="slide-left">
           Our mission is to build a modern, sustainable poultry enterprise
-          grounded in nature...
+          grounded in nature, driven by quality, and designed for scalable
+          growth into regional and international markets,
+          without compromising the principles that define us.
         </p>
 
         <div className="values-grid">
-          <div className="value-card">
+          <div className="value-card slide-right">
             <h3>Nature First</h3>
-            <p>We farm with respect for natural systems.</p>
+            <p>We farm with respect for natural systems and responsible land use.</p>
           </div>
 
-          <div className="value-card">
+          <div className="value-card slide-left">
             <h3>Quality Always</h3>
-            <p>Freshness and care at every stage.</p>
+            <p>Freshness, cleanliness, and care at every stage of production.</p>
           </div>
 
-          <div className="value-card">
+          <div className="value-card slide-right">
             <h3>Community Growth</h3>
-            <p>Nourishing families through agriculture.</p>
+            <p>Nourishing families and creating opportunity through agriculture.</p>
           </div>
 
-          <div className="value-card">
+          <div className="value-card slide-left">
             <h3>Purpose-Driven</h3>
-            <p>Built from passion and belief in Africa’s future.</p>
+            <p>Built from passion, vision, and belief in Africa’s future.</p>
           </div>
         </div>
       </section>
+      </div>
     </>
   );
 }

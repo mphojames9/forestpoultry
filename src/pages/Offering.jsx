@@ -1,13 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 import logo from "../assets/Image Feb 8, 2026, 09_20_39 AM.png";
 import heroImage from "../assets/original-rotisserie-oven-whole-chicken-mobile.jpg";
 
 export default function Offering() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const divRef = useRef(null);
+
+  useEffect(() => {
+      const observerOpts = {
+        root: null,
+        rootMargin: "0px",
+        threshold: [0, 0.1, 0.5],
+      };
+  
+      const slideObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+  
+          if (entry.isIntersecting && entry.intersectionRatio > 0.08) {
+            el.classList.add("visible");
+            el.classList.remove("out");
+  
+            if (el.classList.contains("slide-left") || el.classList.contains("slide-right")) {
+              el.classList.add("in");
+            }
+          } else {
+            el.classList.remove("in");
+            el.classList.add("out");
+            el.classList.remove("visible");
+          }
+        });
+      }, observerOpts);
+  
+      const targets = divRef.current.querySelectorAll(
+        ".reveal, .slide-left, .slide-right"
+      );
+  
+      targets.forEach((el) => slideObserver.observe(el));
+      return () => slideObserver.disconnect();
+    }, []);
+    
 
   return (
     <>
+    <div className="main" ref={divRef}>
       {/* NAV */}
       <nav className="nav">
         <div className="nav-brand">
@@ -32,7 +69,7 @@ export default function Offering() {
       </nav>
 
       {menuOpen && (
-        <div className="mobile-menu">
+        <div className="mobile-menu open">
           <div className="mobile-menu-content">
             <a href="/">Home</a>
             <a href="/about">About</a>
@@ -49,13 +86,13 @@ export default function Offering() {
         }}
       >
         <div className="product-hero-content">
-          <span>Our Offering</span>
-          <h1>
+          <span className="slide-left">Our Offering</span>
+          <h1 className="slide-left">
             Quality Poultry.
             <br />
             Grown With Care.
           </h1>
-          <p>
+          <p className="slide-right">
             Forest Poultry specialises in high-quality chickens farmed
             responsibly, monitored for freshness, consistency, and nutritional
             integrity, from our farm to your table.
@@ -65,14 +102,14 @@ export default function Offering() {
 
       {/* CURRENT OFFERING */}
       <section className="section">
-        <h2 className="section-title">What We Supply Today</h2>
-        <p className="section-sub">
-          Our current focus is deliberate and disciplined — ensuring quality,
+        <h2 className="section-title slide-left">What We Supply Today</h2>
+        <p className="section-sub slide-right">
+          Our current focus is deliberate and disciplined, ensuring quality,
           reliability, and trust at every stage of production.
         </p>
 
         <div className="offer-grid">
-          <div className="offer-card">
+          <div className="offer-card slide-left">
             <h3>Whole Fresh Chickens</h3>
             <p>
               Carefully farmed, organically grown whole chickens, produced with
@@ -81,7 +118,7 @@ export default function Offering() {
             </p>
           </div>
 
-          <div className="offer-card">
+          <div className="offer-card slide-right">
             <h3>Organic & Natural</h3>
             <p>
               Raised using responsible farming methods that protect the land,
@@ -89,7 +126,7 @@ export default function Offering() {
             </p>
           </div>
 
-          <div className="offer-card">
+          <div className="offer-card slide-left">
             <h3>Consistency & Freshness</h3>
             <p>
               Each batch is monitored to ensure consistent quality, freshness,
@@ -101,14 +138,14 @@ export default function Offering() {
 
       {/* PACKAGING */}
       <section className="section packaging">
-        <h2 className="section-title">Packaging Options</h2>
-        <p className="section-sub">
-          Our packaging approach reflects our current stage of growth — simple,
+        <h2 className="section-title slide-right">Packaging Options</h2>
+        <p className="section-sub slide-left">
+          Our packaging approach reflects our current stage of growth, simple,
           clean, and practical.
         </p>
 
         <div className="packaging-grid">
-          <div className="packaging-card">
+          <div className="packaging-card slide-left">
             <h3>Fresh Basic Packaging</h3>
             <p>
               Clean, functional packaging designed to preserve freshness while
@@ -120,15 +157,15 @@ export default function Offering() {
 
       {/* COMING SOON */}
       <section className="section future">
-        <h2 className="section-title">Coming Soon</h2>
-        <p className="section-sub">
+        <h2 className="section-title slide-right">Coming Soon</h2>
+        <p className="section-sub slide-left">
           As Forest Poultry grows, we are developing a dedicated processing and
           packaging line that will enable expanded offerings without compromising
           quality.
         </p>
 
         <div className="future-grid">
-          <div className="future-card">
+          <div className="future-card slide-right">
             <h3>Processed Poultry Cuts</h3>
             <p>
               Carefully portioned chicken cuts prepared under strict quality and
@@ -136,7 +173,7 @@ export default function Offering() {
             </p>
           </div>
 
-          <div className="future-card">
+          <div className="future-card slide-left">
             <h3>Enhanced Packaging Solutions</h3>
             <p>
               Improved packaging options designed for retail, bulk supply, and
@@ -144,7 +181,7 @@ export default function Offering() {
             </p>
           </div>
 
-          <div className="future-card">
+          <div className="future-card slide-right">
             <h3>Scalable Distribution</h3>
             <p>
               Infrastructure built to support regional and future international
@@ -153,44 +190,8 @@ export default function Offering() {
           </div>
         </div>
       </section>
+      </div>
 
-      {/* FOOTER */}
-      <footer className="site-footer">
-        <div className="footer-inner">
-          <div className="footer-brand">
-            <h2>Forest</h2>
-            <p>
-              Grown with care, guided by nature, and built for Africa.
-              Forest Poultry is a purpose-led producer rooted in integrity,
-              sustainability, and long-term nourishment.
-            </p>
-          </div>
-
-          <div className="footer-links">
-            <h4>Explore</h4>
-            <a href="/about">About Us</a>
-            <a href="/about#ourmission">Our Values</a>
-            <a href="/">Home</a>
-          </div>
-
-          <div className="footer-social">
-            <h4>Connect</h4>
-            <div className="social-icons">
-              <a href="#" aria-label="Instagram">IG</a>
-              <a href="#" aria-label="Facebook">FB</a>
-              <a href="#" aria-label="LinkedIn">IN</a>
-            </div>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <span>
-            © 2026 Forest Poultry -{" "}
-            <span className="Slogan">Chicken. Pure Living</span>
-          </span>
-          <span>From the Forest to Your Table</span>
-        </div>
-      </footer>
     </>
   );
 }

@@ -51,11 +51,11 @@ nav a {
   height: 100vh;
   background:
     linear-gradient(rgba(12,36,25,.65), rgba(12,36,25,.9)),
-    url("./asserts/heroimage.jpeg");
+    url("../src/assets/heroimage.jpeg");
   background-size: cover;
   background-position: center;
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1.5fr 1fr;
   align-items: center;
   padding: 0 8%;
 }
@@ -67,7 +67,7 @@ nav a {
   bottom: -1px;
   left: 0;
   width: 100%;
-  height: 100px;
+  height: 80px;
   background: var(--cream);
   transform: skewY(-4deg);
   transform-origin: top left;
@@ -103,7 +103,7 @@ nav a {
   font-weight: 600;
   text-decoration: none;
   transition: .3s ease;
-  margin: 7px 0;
+  margin: 7px 5px;
 }
 
 .btn-main {
@@ -125,7 +125,7 @@ nav a {
 
 .hero-images img {
   position: absolute;
-  width: 280px;
+  width: 300px;
   height: 380px;
   object-fit: cover;
   border-radius: 24px;
@@ -159,7 +159,7 @@ nav a {
 .hero-images img {
   transition: opacity 1s ease;
   z-index: 1;
-  opacity: 0.9;
+  opacity: 0.3;
 }
 
 .hero-images img.active {
@@ -177,6 +177,7 @@ section {
   font-family: 'Playfair Display', serif;
   font-size: 2.8rem;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .section-text {
@@ -238,16 +239,18 @@ section {
 /* ================= FOUNDER ================= */
 .founder {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr;
   gap: 90px;
   align-items: center;
 }
 
 .founder img {
   width: 100%;
+  max-width: 450px;
   border-radius: 30px;
   box-shadow: 0 40px 100px rgba(0,0,0,.35);
   animation: float 10s ease-in-out infinite;
+  margin: 0 auto;
 }
 
 /* ================= GALLERY ================= */
@@ -420,7 +423,7 @@ footer {
 /* =========================
    RESPONSIVE FIXES
 ========================= */
-@media(max-width: 1024px) {
+@media(max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
     padding-top: 120px;
@@ -716,7 +719,7 @@ footer {
   position: fixed;
   background:
     linear-gradient(180deg, rgba(12,36,25,.92), rgba(12,36,25,.98)),
-    url("./asserts/original-rotisserie-oven-whole-chicken-mobile.jpg");
+    url("../src/assets/original-rotisserie-oven-whole-chicken-mobile.jpg");
   background-size: cover;
   background-position: center;
   backdrop-filter: blur(10px);
@@ -1138,6 +1141,7 @@ footer {
 .beliefs li {
   margin-bottom: 10px;
   opacity: .9;
+  list-style-type: none;
 }
 
 @media (max-height: 780px){
@@ -1215,6 +1219,7 @@ footer {
       font-size: 1.05rem;
       line-height: 1.9;
       opacity: .85;
+      margin: 0 auto;
     }
 
     /* ================= CURRENT OFFERING ================= */
@@ -1403,7 +1408,7 @@ footer {
   bottom: -1px;
   left: 0;
   width: 100%;
-  height: 130px;
+  height: 90px;
   background: var(--cream);
   transform: skewY(-4deg);
 }
@@ -1471,7 +1476,7 @@ footer {
   backdrop-filter: blur(14px);
   border-radius: 32px;
   padding: 60px;
-  box-shadow: 0 40px 100px rgba(0,0,0,.12);
+  box-shadow: 0 1px 50px rgba(0,0,0,.12);
   animation: fadeUp 1.4s ease forwards;
 }
 
@@ -1499,6 +1504,7 @@ input, textarea {
   background: #fff;
   outline: none;
   transition: .3s ease;
+  border: solid 1px rgb(227, 231, 193);
 }
 
 textarea {
@@ -1545,7 +1551,7 @@ textarea:focus {
   }
 
   .contact-form {
-    padding: 45px 5px;
+    padding: 45px 20px;
   }
 
 }
@@ -1555,4 +1561,55 @@ textarea:focus {
   .hero::after, .forest-moment::before, .forest-moment::after, .about-hero::after, .philosophy::before, .philosophy::after, .product-hero::after, .packaging::before, .packaging::after, .contact-hero::after {
     height: 30px;
   } 
+}
+
+/* Slide Animations */
+.slide-left {
+    opacity: 0;
+    transform: translateX(-36px);
+    transition: transform .75s cubic-bezier(.2, .9, .2, 1), opacity .6s;
+}
+
+.slide-left.in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slide-right {
+    opacity: 0;
+    transform: translateX(36px);
+    transition: transform .75s cubic-bezier(.2, .9, .2, 1), opacity .6s;
+}
+
+.slide-right.in {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slide-left.out {
+    opacity: 0;
+    transform: translateX(-60px) scale(.98);
+    transition: all .45s;
+}
+
+.slide-right.out {
+    opacity: 0;
+    transform: translateX(60px) scale(.98);
+    transition: all .45s;
+}
+
+.reveal {
+    margin: 25px auto;
+    opacity: 0;
+    transform: translateY(22px);
+    transition: transform .7s cubic-bezier(.2, .9, .2, 1), opacity .6s cubic-bezier(.2, .9, .2, 1);
+}
+
+.visible {
+    opacity: 1;
+    transform: none;
+}
+
+.main {
+  overflow: hidden;
 }

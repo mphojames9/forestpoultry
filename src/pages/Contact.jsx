@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { FaCheckCircle } from "react-icons/fa";
 
 import logo from "../assets/Image Feb 8, 2026, 09_20_39 AM.png";
 import heroImage from "../assets/packing.png";
 
 export default function Contact() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const divRef = useRef(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,9 +35,45 @@ export default function Contact() {
     });
   };
 
+     useEffect(() => {
+      const observerOpts = {
+        root: null,
+        rootMargin: "0px",
+        threshold: [0, 0.1, 0.5],
+      };
+  
+      const slideObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+  
+          if (entry.isIntersecting && entry.intersectionRatio > 0.08) {
+            el.classList.add("visible");
+            el.classList.remove("out");
+  
+            if (el.classList.contains("slide-left") || el.classList.contains("slide-right")) {
+              el.classList.add("in");
+            }
+          } else {
+            el.classList.remove("in");
+            el.classList.add("out");
+            el.classList.remove("visible");
+          }
+        });
+      }, observerOpts);
+  
+      const targets = divRef.current.querySelectorAll(
+        ".reveal, .slide-left, .slide-right"
+      );
+  
+      targets.forEach((el) => slideObserver.observe(el));
+      return () => slideObserver.disconnect();
+    }, []);
+    
+
   return (
     <>
       {/* NAV */}
+      <div className="main" ref={divRef}>
       <nav className="nav">
         <div className="nav-brand">
           <img src={logo} alt="Forest Poultry" />
@@ -59,7 +97,7 @@ export default function Contact() {
       </nav>
 
       {menuOpen && (
-        <div className="mobile-menu">
+        <div className="mobile-menu open">
           <div className="mobile-menu-content">
             <a href="/">Home</a>
             <a href="/about">About</a>
@@ -76,9 +114,9 @@ export default function Contact() {
         }}
       >
         <div className="contact-hero-content">
-          <span>Contact Us</span>
-          <h1>Let’s Grow Together</h1>
-          <p>
+          <span className="slide-left">Contact Us</span>
+          <h1 className="slide-right">Let’s Grow Together</h1>
+          <p className="slide-left">
             Whether you are a customer, supplier, or partner, we’d love to hear
             from you. Reach out and let’s build something rooted in trust and
             purpose.
@@ -90,22 +128,22 @@ export default function Contact() {
       <section className="contact-section">
         {/* INFO */}
         <div className="contact-info">
-          <h2>Get in Touch</h2>
-          <p>
+          <h2 className="slide-right">Get in Touch</h2>
+          <p className="slide-left">
             Forest Poultry is built on transparency, care, and long-term
             relationships. If you have questions about our products,
             partnerships, or supply, we’re here to connect.
           </p>
 
-          <div className="contact-points">
-            <div className="contact-point">• Wholesale & Supply Enquiries</div>
-            <div className="contact-point">• Retail & Distribution</div>
-            <div className="contact-point">• Partnerships & Growth</div>
+          <div className="contact-points slide-left">
+            <div className="contact-point"><FaCheckCircle size={16} /> Wholesale & Supply Enquiries</div>
+            <div className="contact-point"><FaCheckCircle size={16} /> Retail & Distribution</div>
+            <div className="contact-point"><FaCheckCircle size={16} /> Partnerships & Growth</div>
           </div>
         </div>
 
         {/* FORM */}
-        <form className="contact-form" onSubmit={handleSubmit}>
+        <form className="contact-form slide-right" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Full Name</label>
             <input
@@ -154,44 +192,7 @@ export default function Contact() {
           <button type="submit">Send Message</button>
         </form>
       </section>
-
-      {/* FOOTER */}
-      <footer className="site-footer">
-        <div className="footer-inner">
-          <div className="footer-brand">
-            <h2>Forest</h2>
-            <p>
-              Grown with care, guided by nature, and built for Africa.
-              Forest Poultry is a purpose-led producer rooted in integrity,
-              sustainability, and long-term nourishment.
-            </p>
-          </div>
-
-          <div className="footer-links">
-            <h4>Explore</h4>
-            <a href="/about">About Us</a>
-            <a href="/about#ourmission">Our Values</a>
-            <a href="/">Home</a>
-          </div>
-
-          <div className="footer-social">
-            <h4>Connect</h4>
-            <div className="social-icons">
-              <a href="#" aria-label="Instagram">IG</a>
-              <a href="#" aria-label="Facebook">FB</a>
-              <a href="#" aria-label="LinkedIn">IN</a>
-            </div>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <span>
-            © 2026 Forest Poultry -{" "}
-            <span className="Slogan">Chicken. Pure Living</span>
-          </span>
-          <span>From the Forest to Your Table</span>
-        </div>
-      </footer>
+      </div>
     </>
   );
 }
