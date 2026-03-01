@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { FaCheckCircle } from "react-icons/fa";
-
+import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
 import logo from "../assets/Image Feb 8, 2026, 09_20_39 AM.png";
 import heroImage from "../assets/packing.png";
 
 export default function Contact() {
+  const formRef = useRef();
   const [menuOpen, setMenuOpen] = useState(false);
   const divRef = useRef(null);
 
@@ -22,18 +24,39 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Submitted:", formData);
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
+  // Show loading toast
+  toast.loading("Sending message...", { id: "contact-send" });
+
+  emailjs
+    .sendForm(
+      "service_fplafvo",
+      "template_rwzn3jr",
+      formRef.current,
+      "rBAVJPpAlYdFA3_1D"
+    )
+    .then(() => {
+      // Success toast
+      toast.success("Message sent successfully", {
+        id: "contact-send",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    })
+    .catch(() => {
+      // Error toast
+      toast.error("Failed to send message. Please try again.", {
+        id: "contact-send",
+      });
     });
-  };
+};
 
      useEffect(() => {
       const observerOpts = {
@@ -143,7 +166,11 @@ export default function Contact() {
         </div>
 
         {/* FORM */}
-        <form className="contact-form slide-right" onSubmit={handleSubmit}>
+        <form
+  ref={formRef}
+  className="contact-form slide-right"
+  onSubmit={handleSubmit}
+>
           <div className="form-group">
             <label>Full Name</label>
             <input
