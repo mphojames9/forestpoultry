@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dating App MVP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: #f2f2f2;
+  }
+
+  .screen {
+    display: none;
+    padding: 20px;
+  }
+
+  .card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin: auto;
+    text-align: center;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    padding: 12px 20px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 5px;
+  }
+
+  .profile {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- SETUP -->
+<div class="screen" id="setup">
+  <div class="card">
+    <h2>Create Profile</h2>
+    <input id="name" placeholder="Your name">
+    <input id="bio" placeholder="Short bio">
+    <select id="gender">
+      <option value="">Select gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+    <button onclick="saveProfile()">Start Matching</button>
+  </div>
+</div>
+
+<!-- MATCH -->
+<div class="screen" id="match">
+  <div class="card">
+    <div class="profile" id="profileName"></div>
+    <div id="profileBio"></div>
+    <button onclick="likeUser()">❤️ Like</button>
+    <button onclick="nextUser()">❌ Skip</button>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+  // 🔴 REPLACE WITH YOUR CONFIG
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  let currentUserId;
+  let profiles = [];
+  let index = 0;
+
+  auth.signInAnonymously().then(user => {
+    currentUserId = auth.currentUser.uid;
+    document.getElementById("setup").style.display = "block";
+  });
+
+  function saveProfile() {
+    const name = name.value;
+    const bio = bio.value;
+    const gender = document.getElementById("gender").value;
+
+    if (!name || !bio || !gender) return alert("Fill all fields");
+
+    db.collection("users").doc(currentUserId).set({
+      name,
+      bio,
+      gender,
+      likes: []
+    });
+
+    loadProfiles();
+  }
+
+  function loadProfiles() {
+    db.collection("users").get().then(snapshot => {
+      profiles = snapshot.docs.filter(d => d.id !== currentUserId);
+      index = 0;
+      showProfile();
+      document.getElementById("setup").style.display = "none";
+      document.getElementById("match").style.display = "block";
+    });
+  }
+
+  function showProfile() {
+    if (!profiles[index]) {
+      alert("No more profiles");
+      return;
+    }
+
+    const data = profiles[index].data();
+    document.getElementById("profileName").textContent = data.name;
+    document.getElementById("profileBio").textContent = data.bio;
+  }
+
+  function nextUser() {
+    index++;
+    showProfile();
+  }
+
+  function likeUser() {
+    const likedId = profiles[index].id;
+
+    db.collection("users").doc(currentUserId).update({
+      likes: firebase.firestore.FieldValue.arrayUnion(likedId)
+    });
+
+    checkMatch(likedId);
+    nextUser();
+  }
+
+  function checkMatch(likedId) {
+    db.collection("users").doc(likedId).get().then(doc => {
+      const likes = doc.data().likes || [];
+      if (likes.includes(currentUserId)) {
+        alert("🎉 It's a Match!");
+        db.collection("matches").add({
+          user1: currentUserId,
+          user2: likedId
+        });
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

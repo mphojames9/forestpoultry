@@ -13,9 +13,70 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [current, setCurrent] = useState(0);
   const divRef = useRef(null);
-
+  const NAV_TRIGGER_HEIGHT = 180;
   const images = [logoMain, rawChicken, rotisserie];
 
+const [navHidden, setNavHidden] = useState(false);
+const [navCompressed, setNavCompressed] = useState(false);
+
+useEffect(() => {
+  if (!menuOpen) return;
+
+  const closeOnScroll = () => {
+    setMenuOpen(false);
+  };
+
+  window.addEventListener("scroll", closeOnScroll, { passive: true });
+
+  return () => {
+    window.removeEventListener("scroll", closeOnScroll);
+  };
+}, [menuOpen]);
+
+useEffect(() => {
+  let lastScrollY = window.scrollY;
+  let lastTime = performance.now();
+
+  const onScroll = () => {
+    const currentScrollY = window.scrollY;
+    const now = performance.now();
+
+    const deltaY = currentScrollY - lastScrollY;
+    const deltaTime = now - lastTime;
+    const velocity = Math.abs(deltaY / deltaTime);
+
+    // Always reset near top
+    if (currentScrollY < NAV_TRIGGER_HEIGHT) {
+      setNavHidden(false);
+      setNavCompressed(false);
+      lastScrollY = currentScrollY;
+      lastTime = now;
+      return;
+    }
+
+    // Compression zone
+    setNavCompressed(true);
+
+    // Ignore tiny noise
+    if (Math.abs(deltaY) < 6) return;
+
+    // Scroll down
+    if (deltaY > 0) {
+  // Scrolling down
+  setNavHidden(true);
+  setMenuOpen(false); // 🔥 FORCE mobile menu closed
+} else {
+  // Scrolling up
+  setNavHidden(false);
+    } 
+
+    lastScrollY = currentScrollY;
+    lastTime = now;
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  return () => window.removeEventListener("scroll", onScroll);
+}, []);
   /* ---------------- SLIDER ---------------- */
   useEffect(() => {
     const interval = setInterval(() => {
@@ -62,7 +123,12 @@ export default function Home() {
   return (
     <div className="main" ref={divRef}>
       {/* ================= NAVBAR ================= */}
-      <nav className="nav">
+      <nav
+  className={`nav
+    ${navHidden ? "nav-hidden" : ""}
+    ${navCompressed ? "nav-compressed" : ""}
+  `}
+>
         <div className="nav-brand animate">
           <img src={logo} alt="Forest Poultry Logo" />
         </div>
@@ -124,10 +190,7 @@ export default function Home() {
             nutritious chicken through ethical, sustainable farming rooted in
             long-term African growth.
           </p>
-
-          <a href="#about" className="btn-main slide-left">
-            Explore Our Products
-          </a>
+          <Link className="btn-main slide-left" to="/offering">Explore Our Products</Link>
 
           <a href="#founder" className="btn-outline slide-right">
             Meet the Founder

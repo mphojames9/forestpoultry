@@ -56,9 +56,8 @@ export default function Footer() {
         <div className="footer-links slide-right">
           <h4>Explore</h4>
           <Link to="/about">About Us</Link>
-          <Link to="/#values">Our Values</Link>
-          <Link to="/#founder">Founder</Link>
-          <Link to="/offering">Gallery</Link>
+          <Link to="/offering">Our Offering</Link>
+          <Link to="/contact">Contact Us</Link>
         </div>
 
         {/* SOCIAL */}

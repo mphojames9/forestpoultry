@@ -6,7 +6,8 @@
   --cream: #F4F8F2;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none; }
 
 body {
   font-family: 'Inter', sans-serif;
@@ -805,7 +806,7 @@ footer {
 }
 
 
-@media (max-height: 780px){
+@media (max-height: 900px){
   .hero { 
     height: 800px;
   }
@@ -1144,7 +1145,7 @@ footer {
   list-style-type: none;
 }
 
-@media (max-height: 780px){
+@media (max-height: 900px){
 
   .hero::after, .forest-moment::before, .forest-moment::after, .about-hero::after, .philosophy::before, .philosophy::after, .product-hero::after, .packaging::before, .packaging::after, .contact-hero::after {
     height: 30px;
@@ -1371,7 +1372,7 @@ footer {
       }
     }
 
-    @media (max-height: 780px) {
+    @media (max-height: 900px) {
 
       .hero::after,
       .forest-moment::before,
@@ -1556,7 +1557,7 @@ textarea:focus {
 
 }
 
-@media (max-height: 780px){
+@media (max-height: 900px){
 
   .hero::after, .forest-moment::before, .forest-moment::after, .about-hero::after, .philosophy::before, .philosophy::after, .product-hero::after, .packaging::before, .packaging::after, .contact-hero::after {
     height: 30px;
@@ -1612,4 +1613,190 @@ textarea:focus {
 
 .main {
   overflow: hidden;
+}
+
+/* ================= BACK TO TOP ================= */
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+
+  background: rgba(2, 58, 39, 0.418);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation: fadeUp 0.35s ease forwards;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.28),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.back-to-top svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: white;
+  stroke-width: 2;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* ================= ELITE NAV ================= */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.35s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    backdrop-filter 0.3s ease;
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  will-change: transform;
+}
+
+/* Compressed (scroll intent detected) */
+.nav.nav-compressed {
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Fully hidden */
+.nav.nav-hidden {
+  transform: translateY(-120%);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .nav {
+    transition: none;
+  }
+}
+
+/* Mobile tuning */
+@media (max-width: 768px) {
+  .nav.nav-compressed {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+}
+
+/* ================= MOBILE MENU + NAV SYNC ================= */
+.mobile-menu {
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+}
+
+.mobile-menu.menu-hidden {
+  transform: translateY(-20px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.about-hero, .hero, .product-hero, .contact-hero {
+  margin-top: -100px ;
+}
+
+#ourstory {
+  scroll-margin-top: 990px; /* match your navbar height */
+}
+
+.product-hero {
+    min-height: 75vh;
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 160px 8% 120px;
+    color: #fff;
+    overflow: hidden;
+}
+
+/* Slideshow Layer */
+.product-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background-image: 
+        linear-gradient(rgba(12, 36, 25, 0.88), rgba(12, 36, 25, 0.95)),
+        url("../assets/original-rotisserie-oven-whole-chicken-mobile.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    animation: heroSlideshow 18s infinite;
+    z-index: -1;
+}
+
+/* Keyframes */
+@keyframes heroSlideshow {
+
+    0% {
+        background-image:
+            url("./assets/original-rotisserie-oven-whole-chicken-mobile.jpg");
+    }
+
+    33% {
+        background-image:
+            url("./assets/family.png");
+    }
+
+    66% {
+        background-image:
+            url("./assets/family2.png");
+    }
+
+    100% {
+        background-image:
+            url("./assets/original-rotisserie-oven-whole-chicken-mobile.jpg");
+    }
 }
