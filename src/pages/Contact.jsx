@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle, FaWhatsapp } from "react-icons/fa"; // Added FaWhatsapp
 import emailjs from "@emailjs/browser";
 import toast from "react-hot-toast";
 import logo from "../assets/Image Feb 8, 2026, 09_20_39 AM.png";
@@ -233,6 +233,31 @@ export default function Contact() {
               <div className="contact-point"><FaCheckCircle size={16} /> Retail & Distribution</div>
               <div className="contact-point"><FaCheckCircle size={16} /> Partnerships & Growth</div>
             </div>
+
+            {/* WHATSAPP BUTTON */}
+            <a
+              href="https://wa.me/27684518292"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="whatsapp-btn slide-left"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                backgroundColor: "#25D366",
+                color: "#fff",
+                padding: "12px 24px",
+                borderRadius: "8px",
+                textDecoration: "none",
+                fontWeight: "bold",
+                marginTop: "24px",
+                fontSize: "16px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)"
+              }}
+            >
+              <FaWhatsapp size={22} />
+              Chat on WhatsApp
+            </a>
           </div>
 
           {/* FORM */}
