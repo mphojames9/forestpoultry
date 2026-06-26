@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useScrollLock } from "./useScrollLock"
 
 import logo from "../assets/Image Feb 8, 2026, 09_20_39 AM.png";
 import heroImage from "../assets/original-rotisserie-oven-whole-chicken-mobile.jpg";
@@ -8,6 +9,7 @@ export default function Offering() {
   const [menuOpen, setMenuOpen] = useState(false);
   const divRef = useRef(null);
   const NAV_TRIGGER_HEIGHT = 180;
+    useScrollLock(menuOpen); 
 
   const [navHidden, setNavHidden] = useState(false);
   const [navCompressed, setNavCompressed] = useState(false);
@@ -138,26 +140,22 @@ export default function Offering() {
       </div>
 
       <div className="vault-link-wrapper" style={{ "--item-idx": 3 }}>
-        <Link to="/offering" onClick={() => setMenuOpen(false)}>
-          <span className="link-index">03</span>
-          <span className="link-title">The Offering</span>
-        </Link>
+          <Link to="/about" onClick={() => setMenuOpen(false)} style={{ "--item-idx": 1 }}>
+                <span className="link-index">02</span>
+                <span className="link-title">About</span>
+          </Link>
       </div>
 
       <div className="vault-link-wrapper" style={{ "--item-idx": 4 }}>
         <Link to="/contact" onClick={() => setMenuOpen(false)} className="vault-cta-highlight">
           <span className="link-index">04</span>
-          <span className="link-title">Secure Portal</span>
+          <span className="link-title">Contact Us</span>
         </Link>
       </div>
     </div>
 
     <div className="vault-footer">
       <p className="vault-manifesto">Farming With Intention. Guided by Nature.</p>
-      <div className="vault-footer-meta">
-        <span>© 2026 Forest Poultry</span>
-        <span>v2.0.30</span>
-      </div>
     </div>
   </div>
 </div>
@@ -368,7 +366,7 @@ export default function Offering() {
 
         /* --- NAVIGATION --- */
         .ag-nav {
-          position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+          position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
           padding: 2.2rem 0; background: transparent;
           transition: transform 0.5s var(--luxury-transition), padding 0.4s ease, background 0.4s ease;
         }
@@ -545,6 +543,12 @@ export default function Offering() {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s ease 0.4s, transform 0.8s var(--luxury-transition) 0.4s;
+}
+
+  /* ADD THIS BLOCK TO REVEAL THE FOOTER */
+.ag-mobile-menu.is-open .vault-footer {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .vault-manifesto {
