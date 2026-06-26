@@ -5,8 +5,10 @@ import toast from "react-hot-toast";
 import logo from "../assets/Image Feb 8, 2026, 09_20_39 AM.png";
 import heroImage from "../assets/packing.png";
 import { Link } from "react-router-dom";
+import { useScrollLock } from "./useScrollLock"
 
 export default function Contact() {
+
   const formRef = useRef();
   const [menuOpen, setMenuOpen] = useState(false);
   const divRef = useRef(null);
@@ -124,6 +126,8 @@ export default function Contact() {
       });
   };
 
+      useScrollLock(menuOpen); 
+
   return (
     <div className="premium-contact-canvas" ref={divRef}>
       {/* Subtle Luxury Film Grain Texture Overlay */}
@@ -193,10 +197,6 @@ export default function Contact() {
       <p className="vault-manifesto">
         Direct telemetry channel. Payload systems active.
       </p>
-      <div className="vault-footer-meta">
-        <span>© 2026 Forest Poultry</span>
-        <span>Secure Terminal</span>
-      </div>
     </div>
   </div>
 </div>
