@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useScrollLock } from "./useScrollLock"
 
 import logo from "../assets/Image Feb 8, 2026, 09_20_39 AM.png";
 import heroAbout from "../assets/heroAbout.png";
@@ -9,6 +10,7 @@ import storyImg3 from "../assets/pakaging.png";
 import { FaCheckCircle } from "react-icons/fa";
 
 export default function About() {
+
   const [menuOpen, setMenuOpen] = useState(false);
   const divRef = useRef(null);
   const [openSections, setOpenSections] = useState({
@@ -109,6 +111,7 @@ export default function About() {
     targets.forEach((el) => slideObserver.observe(el));
     return () => slideObserver.disconnect();
   }, []);
+      useScrollLock(menuOpen); 
 
   return (
     <>
@@ -194,10 +197,6 @@ export default function About() {
       <p className="vault-manifesto">
         Farming with intention, completely guided by nature.
       </p>
-      <div className="vault-footer-meta">
-        <span>© 2026 Forest Poultry</span>
-        <span>Ecosystem Secure</span>
-      </div>
     </div>
   </div>
 </div>
@@ -1093,6 +1092,7 @@ export default function About() {
           /* RESPONSIVE PADDING FIX: Further increases the horizontal padding on mobile to ensure a beautiful frame */
           @media (max-width: 640px) {
             .container {
+            padding-top: 30vw;
               padding-left: 7vw;
               padding-right: 7vw;
             }
