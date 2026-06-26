@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useScrollLock } from "./useScrollLock"
 
 // Image Assets strictly imported as requested
 import logoMain from "../assets/logomain.png";
@@ -13,6 +14,9 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [current, setCurrent] = useState(0);
   const divRef = useRef(null);
+  
+  // 2. Call the hook and pass the menuOpen state
+  useScrollLock(menuOpen); 
   
   const images = [logoMain, rawChicken, rotisserie];
 
@@ -135,38 +139,32 @@ export default function Home() {
 
           <div className="vault-links">
             <div className="vault-link-wrapper">
-              <Link to="/" onClick={() => setMenuOpen(false)} style={{ "--item-idx": 0 }}>
-                <span className="link-index">01</span>
-                <span className="link-title">Home</span>
-              </Link>
-            </div>
-            <div className="vault-link-wrapper">
               <Link to="/about" onClick={() => setMenuOpen(false)} style={{ "--item-idx": 1 }}>
-                <span className="link-index">02</span>
+                <span className="link-index">01</span>
                 <span className="link-title">About</span>
               </Link>
             </div>
             <div className="vault-link-wrapper">
               <a href="#values" onClick={() => setMenuOpen(false)} style={{ "--item-idx": 2 }}>
-                <span className="link-index">03</span>
+                <span className="link-index">02</span>
                 <span className="link-title">Values</span>
               </a>
             </div>
             <div className="vault-link-wrapper">
               <a href="#founder" onClick={() => setMenuOpen(false)} style={{ "--item-idx": 3 }}>
-                <span className="link-index">04</span>
+                <span className="link-index">03</span>
                 <span className="link-title">Founder</span>
               </a>
             </div>
             <div className="vault-link-wrapper">
               <Link to="/offering" onClick={() => setMenuOpen(false)} style={{ "--item-idx": 4 }}>
-                <span className="link-index">05</span>
+                <span className="link-index">04</span>
                 <span className="link-title">Offering</span>
               </Link>
             </div>
             <div className="vault-link-wrapper vault-cta-highlight">
               <Link to="/contact" onClick={() => setMenuOpen(false)} style={{ "--item-idx": 5 }}>
-                <span className="link-index">06</span>
+                <span className="link-index">05</span>
                 <span className="link-title">Contact Us</span>
               </Link>
             </div>
@@ -176,10 +174,6 @@ export default function Home() {
             <p className="vault-manifesto">
               Nature does not rush. It grows with intention.
             </p>
-            <div className="vault-footer-meta">
-              <span>© 2026 Forest Poultry</span>
-              <span>Systems Online</span>
-            </div>
           </div>
         </div>
       </div>
@@ -190,7 +184,6 @@ export default function Home() {
           {/* Text Left */}
           <div className="hero-text-content">
             <div className="reveal-trigger staggered-text">
-              <span className="accent-eyebrow">The 2026 Standard</span>
               <h1>Grown with Care.</h1>
               <h1 className="indent">Delivered with Pride.</h1>
               <p className="hero-lead">
@@ -217,7 +210,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      
 
       {/* ================= ABOUT (BRIGHT CREAM) - IMAGE LEFT ================= */}
       <section id="about" className="ag-section theme-bright padding-huge">
@@ -464,6 +456,7 @@ export default function Home() {
           grid-template-columns: 1fr 1fr;
           gap: 6vw;
           align-items: center;
+         
         }
 
         .padding-huge { padding: 10rem 0; }
@@ -482,40 +475,100 @@ export default function Home() {
         .theme-bright { background-color: var(--bright-cream); color: var(--dark-green); }
         .dark-text { color: var(--dark-green) !important; }
 
-        /* Buttons */
+        /* ================= SUPER PREMIUM BUTTONS ================= */
         .ag-btn-solid, .ag-btn-outline {
-          display: inline-block;
-          padding: 1.2rem 2.5rem;
-          font-size: 0.9rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.2rem 2.6rem;
+          font-size: 0.85rem;
           text-transform: uppercase;
           letter-spacing: 2px;
+          font-weight: 600;
           border-radius: 100px;
-          transition: all 0.4s ease;
           cursor: pointer;
           text-decoration: none;
+          transition: all 0.6s var(--luxury-transition);
+          position: relative;
+          overflow: hidden; /* Contains the animative sheen */
+          z-index: 1;
         }
 
+        /* 1. Base Solid Gold Button */
         .ag-btn-solid {
-          background-color: var(--gold-accent);
+          background: linear-gradient(145deg, var(--gold-accent) 0%, #a88a48 100%);
           color: var(--dark-green);
-          border: 1px solid var(--gold-accent);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          /* Inner top highlight for 3D volume, outer drop shadow for depth */
+          box-shadow: 
+            0 10px 20px rgba(196, 166, 97, 0.15), 
+            inset 0 1.5px 0 rgba(255, 255, 255, 0.4);
         }
 
+        /* 2. Animative Light Sweep (The Sheen) */
+        .ag-btn-solid::before {
+          content: '';
+          position: absolute;
+          top: 0; left: -150%;
+          width: 50%; height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+          transform: skewX(-25deg);
+          transition: 0s; /* Reset immediately when not hovering */
+          z-index: -1;
+        }
+
+        /* 3. High-End Hover Interaction */
         .ag-btn-solid:hover {
-          background-color: transparent;
-          color: var(--gold-accent);
-          transform: translateY(-5px);
+          transform: translateY(-5px) scale(1.02);
+          letter-spacing: 3.5px; /* Kinetic typography expansion */
+          background: linear-gradient(145deg, #e3c472 0%, #c4a661 100%);
+          color: var(--dark-green);
+          box-shadow: 
+            0 18px 35px rgba(196, 166, 97, 0.35), /* Deeper drop shadow */
+            0 0 0 5px rgba(196, 166, 97, 0.15),   /* Outer expanding ring */
+            inset 0 1.5px 0 rgba(255, 255, 255, 0.6);
         }
 
+        /* 4. Trigger the Light Sweep on Hover */
+        .ag-btn-solid:hover::before {
+          left: 200%;
+          transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* ================= THEME BRIGHT OVERRIDES ================= */
+        /* Dark Green Buttons for Bright Backgrounds */
         .theme-bright .ag-btn-solid {
-          background-color: var(--dark-green);
-          color: var(--bright-cream);
-          border-color: var(--dark-green);
+          background: linear-gradient(145deg, var(--dark-green) 0%, #05140b 100%);
+          color: var(--gold-accent);
+          border: 1px solid rgba(214, 175, 55, 0.2);
+          box-shadow: 
+            0 10px 20px rgba(7, 25, 16, 0.2), 
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
         }
+
+        /* Gold-tinted sheen for the dark buttons */
+        .theme-bright .ag-btn-solid::before {
+          background: linear-gradient(90deg, transparent, rgba(214, 175, 55, 0.15), transparent);
+        }
+
         .theme-bright .ag-btn-solid:hover {
-          background-color: transparent;
-          color: var(--dark-green);
+          color: var(--bright-cream);
+          background: linear-gradient(145deg, #0e2b1b 0%, var(--dark-green) 100%);
+          box-shadow: 
+            0 18px 35px rgba(7, 25, 16, 0.4), 
+            0 0 0 5px rgba(7, 25, 16, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
+
+        /* ================= BASE OUTLINE MAINTAINER ================= */
+        .ag-btn-outline {
+          border: 1px solid var(--bright-cream);
+          background: transparent;
+          color: var(--bright-cream);
+        }
+        .nav-light .ag-btn-outline { border-color: var(--dark-green); color: var(--dark-green); }
+        .ag-btn-outline:hover { background: var(--bright-cream); color: var(--dark-green) !important; letter-spacing: 3.5px; }
+        .nav-light .ag-btn-outline:hover { background: var(--dark-green); color: var(--bright-cream) !important; }
 
         /* Smart Navbar */
         .ag-nav {
@@ -582,7 +635,7 @@ export default function Home() {
         .ag-mobile-menu {
           position: fixed;
           inset: 0;
-          z-index: 100;
+          z-index: 1001;
           visibility: hidden;
           pointer-events: none;
           transition: visibility 0.6s var(--luxury-transition);
@@ -666,7 +719,7 @@ export default function Home() {
           width: 100%;
           max-width: 380px;
           margin: 0 auto;
-          height: 75vh; 
+          height: 55vh; 
           border-radius: 20px; 
           overflow: hidden;
           
@@ -809,15 +862,93 @@ export default function Home() {
           pointer-events: none;
         }
 
-        /* Bento Grid */
-        .ag-bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2vw; }
-        .bento-cell { background: var(--mid-green); padding: 3.5rem; border-radius: 12px; position: relative; transition: transform 0.6s var(--luxury-transition), box-shadow 0.6s ease; border: 1px solid rgba(255,255,255,0.02); }
-        .bento-cell:hover { transform: translateY(-10px); background: #123622; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-color: rgba(214,175,55,0.15); }
+        /* ================= PREMIUM BENTO GRID ================= */
+        .ag-bento-grid { 
+          display: grid; 
+          grid-template-columns: repeat(3, 1fr); 
+          gap: 2vw; 
+        }
+
+        .bento-cell { 
+          background: linear-gradient(145deg, var(--mid-green) 0%, #051009 100%);
+          padding: 3.5rem; 
+          border-radius: 12px; 
+          position: relative; 
+          transition: all 0.8s var(--luxury-transition); 
+          border: 1px solid rgba(255, 255, 255, 0.03);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+          z-index: 1;
+        }
+
+        /* Subtle Corner Glow Ambient Effect */
+        .bento-cell::before {
+          content: '';
+          position: absolute;
+          top: 0; right: 0;
+          width: 100px; height: 100px;
+          background: radial-gradient(circle at top right, rgba(214, 175, 55, 0.08) 0%, transparent 70%);
+          border-top-right-radius: 12px;
+          transition: 0.8s var(--luxury-transition);
+          z-index: -1;
+        }
+
+        /* The Premium Golden Top-Right Corner Border */
+        .bento-cell::after {
+          content: '';
+          position: absolute;
+          top: -1px; right: -1px;
+          width: 35px; height: 35px;
+          border-top: 2px solid var(--gold-accent);
+          border-right: 2px solid var(--gold-accent);
+          border-top-right-radius: 12px;
+          opacity: 0.4;
+          transition: all 0.8s var(--luxury-transition);
+        }
+
+        /* High-End Hover State */
+        .bento-cell:hover { 
+          transform: translateY(-8px); 
+          background: linear-gradient(145deg, #0e2b1b 0%, #071910 100%);
+          box-shadow: 
+            0 25px 50px rgba(0, 0, 0, 0.6),
+            inset 0 0 0 1px rgba(214, 175, 55, 0.05); /* Inner micro-border glow */
+          border-color: rgba(214, 175, 55, 0.2); 
+        }
+
+        /* Expand the Golden Corner on Hover */
+        .bento-cell:hover::after {
+          width: 80px;
+          height: 80px;
+          opacity: 1;
+          border-width: 3px;
+          box-shadow: inset -5px 5px 15px -5px rgba(214, 175, 55, 0.15);
+        }
+        
+        .bento-cell:hover::before {
+          background: radial-gradient(circle at top right, rgba(214, 175, 55, 0.25) 0%, transparent 70%);
+        }
+
+        /* Layout specific */
         .cell-tall { grid-row: span 2; display: flex; flex-direction: column; justify-content: center; }
         .cell-wide { grid-column: span 2; }
 
-        .bento-num { position: absolute; top: 20px; right: 25px; font-family: var(--font-serif); font-size: 2rem; color: rgba(196, 166, 97, 0.2); font-style: italic; transition: color 0.4s ease; }
-        .bento-cell:hover .bento-num { color: rgba(196, 166, 97, 0.4); }
+        /* Elegant Numbers Styling */
+        .bento-num { 
+          position: absolute; 
+          top: 25px; 
+          right: 30px; 
+          font-family: var(--font-serif); 
+          font-size: 2.2rem; 
+          color: rgba(196, 166, 97, 0.25); 
+          font-style: italic; 
+          transition: all 0.8s var(--luxury-transition); 
+        }
+
+        /* Make number shift and shine slightly */
+        .bento-cell:hover .bento-num { 
+          color: rgba(196, 166, 97, 0.9);
+          transform: translate(-10px, 10px) scale(1.05);
+        }
 
         /* Parallax Moment */
         .forest-parallax {
@@ -877,13 +1008,13 @@ export default function Home() {
 
         /* Responsive Breakpoints & Ultra-Responsive Mobile Fallbacks */
         @media (max-width: 768px) {
-          .ag-grid { grid-template-columns: 1fr; gap: 4rem; }
+          .ag-grid { grid-template-columns: 1fr; gap: 4rem;  padding-top: 15px; }
           .hero-image-slider { height: 50vh; }
           .ag-bento-grid { grid-template-columns: 1fr; }
           .cell-tall, .cell-wide { grid-column: auto; grid-row: auto; }
           .indent { margin-left: 0; }
           .desktop-only { display: none; }
-          .ag-burger { display: block; }
+          .ag-burger { display: block; z-index: 9999 }
           .reverse-mobile { display: flex; flex-direction: column-reverse; }
           .text-right-pad { padding-left: 0; }
           
